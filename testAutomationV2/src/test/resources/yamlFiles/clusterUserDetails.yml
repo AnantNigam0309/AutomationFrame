@@ -1,8 +1,8 @@
 ---
 nightly: 
-  url: https://nightly.capillary.in/
-  username: ashish
-  password: 12
+  url: 
+  username: 
+  password: 
 staging:
   url:
   username:
