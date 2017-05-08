@@ -1,0 +1,23 @@
+package testManager;
+
+import generics.constant;
+import utils.generateReportCucumber;
+
+public class afterExecution extends constant{
+
+	public afterExecution(){
+		System.out.println("Object Initialized for After Execution");
+		log.info("Object Initialized for After Execution");
+	}
+	
+	public void completeExecution(){
+		try{
+			driver.quit();
+		    generateReportCucumber.GenerateMasterthoughtReport(constant.platform,constant.browser,constant.branch,constant.buildNumber);	
+		}catch (Exception exp){
+			log.info("Exception Occured while completing the execution .. , Message Recieved :"+exp.getMessage());
+		}finally{
+			System.gc();
+		}	
+	}
+}

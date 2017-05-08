@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="1" verbose="0" name="Failed suite [Suite]" parallel="classes">
+  <parameter name="browser" value="chrome"/>
+  <parameter name="branch" value="Release1.1"/>
+  <parameter name="buildNumber" value="1"/>
+  <parameter name="platform" value="Ubuntu"/>
+  <listeners>
+    <listener class-name="generics.listner"/>
+  </listeners>
+  <test name="Test(failed)" parallel="classes">
+    <classes>
+      <class name="Engine.testNGTestRunnerCampaign">
+        <methods>
+          <include name="run_cukes"/>
+          <include name="beforeMethod"/>
+        </methods>
+      </class> <!-- Engine.testNGTestRunnerCampaign -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

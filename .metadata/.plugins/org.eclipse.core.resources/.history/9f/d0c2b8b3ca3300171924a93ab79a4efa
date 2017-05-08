@@ -1,0 +1,30 @@
+May 04, 2017 3:36:33 PM testManager.beforeExecution setLogger
+INFO: -----------------------------------
+May 04, 2017 3:36:33 PM testManager.beforeExecution setLogger
+INFO: -----------------------------------
+May 04, 2017 3:36:33 PM testManager.beforeExecution setLogger
+INFO: Logger Set in class beforeExecution
+May 04, 2017 3:36:33 PM testManager.beforeExecution setLogger
+INFO: Logger Set in class beforeExecution
+May 04, 2017 3:36:33 PM testManager.beforeExecution deleteXMLDirectoryFiles
+INFO: deleted XML Directory Files
+May 04, 2017 3:36:33 PM testManager.beforeExecution deleteXMLDirectoryFiles
+INFO: deleted XML Directory Files
+May 04, 2017 3:36:33 PM utils.fileHelper <init>
+INFO: Object Initialized For fileHelper class ..
+May 04, 2017 3:36:33 PM utils.fileHelper <init>
+INFO: Object Initialized For fileHelper class ..
+May 04, 2017 3:36:33 PM generics.selenuimHelper openBrowser
+INFO: Opening Browser :chrome
+May 04, 2017 3:36:33 PM generics.selenuimHelper openBrowser
+INFO: Opening Browser :chrome
+May 04, 2017 3:36:34 PM generics.selenuimHelper openURL
+INFO: Opening URL :https://www.google.co.in/
+May 04, 2017 3:36:34 PM generics.selenuimHelper openURL
+INFO: Opening URL :https://nightly.capillary.in
+May 04, 2017 3:36:40 PM generics.selenuimHelper openURL
+INFO: https://nightly.capillary.in/auth/login/?flash=&from=/home/indexis opened
+May 04, 2017 3:36:40 PM generics.selenuimHelper openURL
+INFO: https://nightly.capillary.in/auth/login/?flash=&from=/home/indexis opened
+May 04, 2017 3:36:40 PM generics.listner onFinish
+INFO: Suite Execution is Finished and now Generate Results is trigerred

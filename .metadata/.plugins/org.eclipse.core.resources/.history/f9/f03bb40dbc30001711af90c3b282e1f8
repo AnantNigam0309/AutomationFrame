@@ -1,0 +1,13 @@
+package utils;
+
+import java.util.logging.Logger;
+
+import Engine.testNGTestRunnerCampaign;
+
+public class objectHelper extends constant{
+
+	objectHelper(){
+		log=Logger.getLogger(testNGTestRunnerCampaign.class.getSimpleName().toString());
+		
+	}
+}

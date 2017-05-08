@@ -1,0 +1,29 @@
+package generics;
+
+
+import java.util.logging.Logger;
+
+import org.omg.CORBA.ObjectHelper;
+import org.yaml.snakeyaml.Yaml;
+
+import utils.fileHelper;
+import utils.objectHelper;
+
+public class objectInitializer extends constant{
+	
+	public objectInitializer(){
+		System.out.println("Wrapping up all classes and Initializing Object");
+		log=Logger.getLogger(objectInitializer.class.getSimpleName().toString());
+	}
+
+	public void initialize(){
+		try{
+			file = new fileHelper();
+			ymlObject=new Yaml();
+			objHelper= new objectHelper();
+		}catch(Exception exp){
+			log.info(exp.getMessage());
+		}
+	}
+	
+}

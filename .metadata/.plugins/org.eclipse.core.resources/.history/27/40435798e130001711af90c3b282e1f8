@@ -1,0 +1,50 @@
+package utils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import org.yaml.snakeyaml.Yaml;
+
+import Engine.testNGTestRunnerCampaign;
+import generics.constant;
+
+public class yamlHelper extends constant{
+	
+	yamlHelper(){
+		log=Logger.getLogger(testNGTestRunnerCampaign.class.getSimpleName().toString());
+		ymlObject =new Yaml();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void load(String fileName) {
+	   String pathName=ymlPath+fileName+".yml";
+       try {
+    	   log.info("Loading Yaml for File :"+fileName);
+		   ymlMapper = (Map<String, Object>) ymlObject.load(new FileInputStream(new File(pathName)));
+	   } catch (FileNotFoundException exp) {
+		   log.info("Exception Occured while loading yaml file :"+fileName+" Message Recieved :"+exp.getMessage());
+	   } catch (Exception exp){
+		   log.info("Exception Occured while loading yaml file :"+fileName+" Message Recieved :"+exp.getMessage());
+	   }
+	}
+	
+	public void dump(String fileName){
+		String pathName=ymlPath+fileName+".yml";
+		try{
+			log.info("Dumping the Current Yaml Object");
+			ymlObject.dump(ymlObject.load(new FileInputStream(new File(pathName))));
+		} catch(Exception exp){
+			log.info("Exception Occured while Dumping Curent Yaml Object");
+		}
+	}
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		yamlHelper d=new yamlHelper();
+		d.load("clusterUserDetails");
+		
+	}
+	
+}

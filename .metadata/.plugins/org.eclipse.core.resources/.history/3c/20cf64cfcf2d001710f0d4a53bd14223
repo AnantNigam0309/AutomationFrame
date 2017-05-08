@@ -1,0 +1,52 @@
+package Engine;
+
+import java.io.IOException;
+import java.util.logging.Logger;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import cucumber.api.CucumberOptions;
+import cucumber.api.testng.TestNGCucumberRunner;
+import generics.constant;
+import utils.xmlReporter;
+
+/**
+ * 
+ * @author anantnigam
+ *
+ */
+
+@CucumberOptions(features="src/test/resources/features/",
+glue="defintions",
+format= {"pretty","html:target/Destination"},
+tags={"@Test"},
+monochrome=true,
+strict=false
+)
+public class testngTestRunner extends constant{
+ 
+	private testngTestRunner(){
+		System.out.println("Object initialized for testNG Runner :)");
+		constant.log=Logger.getLogger(testngTestRunner.class.getSimpleName().toString());
+	}
+	
+	@BeforeMethod
+	public void beforeMethod(){
+		taskManagerBeforeExecution.setLogger();
+		initializer.initialize();  // To Initialize all Non Static Classes in Framework , Path--> generics.objectInitializer.initialize()
+	}
+	
+	@Test(groups = "cucumber", description = "Runs Cucumber Features")
+	public void run_cukes() throws IOException {
+	  new TestNGCucumberRunner(getClass()).runCukes();
+	}
+	
+	@AfterMethod
+	public void afterMethod(){
+        System.out.println("----------------------------");
+		xmlReporter rr=new xmlReporter("Test","fail");
+		rr.appendReport();
+	}
+}

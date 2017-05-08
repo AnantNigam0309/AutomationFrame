@@ -1,0 +1,17 @@
+package testManager;
+
+import generics.constant;
+
+public class afterExecution extends constant{
+
+	public afterExecution(){
+		System.out.println("Object Initialized for After Execution");
+		log.info("Object Initialized for After Execution");
+	}
+	
+	public void completeExecution(){
+		driver.quit();
+		System.gc();
+		
+	}
+}

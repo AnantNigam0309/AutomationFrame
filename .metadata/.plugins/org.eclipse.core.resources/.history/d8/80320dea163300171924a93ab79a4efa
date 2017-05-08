@@ -1,0 +1,8 @@
+
+To Create XML Report after Each Execution we need to do this:
+xmlReporter rr=new xmlReporter("b","c");
+rr.appendReport();
+		
+To capture data from yml file we need this :
+ymlHelper.getObject("clusterUserDetails")
+		

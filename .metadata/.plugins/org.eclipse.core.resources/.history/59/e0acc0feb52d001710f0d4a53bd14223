@@ -1,0 +1,17 @@
+package utils;
+
+import java.util.logging.Logger;
+
+import generics.constant;
+
+public class xmlReporter extends constant {
+
+	private String scenario=null;
+	private String result=null;
+	
+	xmlReporter(String scenario,String result){
+		log=Logger.getLogger(xmlReporter.class.getSimpleName().toString());
+		this.scenario=scenario;
+		this.result=result;
+	}
+}

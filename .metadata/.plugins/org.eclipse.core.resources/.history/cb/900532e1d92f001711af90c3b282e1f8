@@ -1,0 +1,195 @@
+package generics;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class selenuimHelper extends constant{
+	
+	public static void openBrowser(String browserType){
+	  try{
+		log.info("Opening Browser :"+browserType);
+		if (browserType.equalsIgnoreCase("FF") || browserType.equalsIgnoreCase("Firefox")){
+			driver=new FirefoxDriver();
+			driver.manage().window().maximize();
+		}else if (browserType.equalsIgnoreCase("chrome")){
+			System.setProperty("webdriver.chrome.driver", chromeDriverpath);
+			ChromeOptions cOption=new ChromeOptions();
+			cOption.addArguments("--test-type");
+			DesiredCapabilities capability= DesiredCapabilities.chrome();
+			capability.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+			capability.setCapability(ChromeOptions.CAPABILITY, cOption);
+			driver=new ChromeDriver(cOption);
+			driver.manage().window().maximize();
+		}else if (browserType.equalsIgnoreCase("IE")){
+			System.setProperty("webdriver.ie.driver", ieDriverpath);
+			driver =new InternetExplorerDriver();
+			driver.manage().window().maximize();
+		} else{
+			log.warning("Browser Type Invalid .. Please check testng.xml file and make changes in parameters");
+		}
+      }catch(Exception exp){
+    	  CaptureScreenshot("openBrowser");
+    	  log.info("Exception Captured while opening Browser for browser type"+browserType 
+    			  +" Exception Message recieved is :"+exp.getMessage());
+      }
+	}
+	
+	public static void openURL(String URL){
+		try{
+			log.info("Opening URL :"+URL);
+			driver.get(URL);
+			log.info(driver.getCurrentUrl() +"is opened");
+		} catch (Exception exp){
+			log.info("Exception catched while opening URL :"+URL
+					+" with Exception message as :"+exp.getMessage());
+		}
+	}
+	
+	public static void passTextToWebelement(WebElement element,String inputData){
+		try{
+			waitForElementExplicitly(element);
+			String[] txt=element.toString().split("->");
+			String elementString = txt[1].replaceAll("]]","]");
+			log.info("Checking for Element displayed");
+			
+			if(element.isDisplayed()){
+				log.info("Entering :"+inputData+" to field :"+elementString);
+				element.clear();
+				element.sendKeys(inputData);
+			}else{
+				log.info("Element is not Displayed ..");
+			}
+		}catch (Exception exp){
+			log.info("Exception occured while Entering value in Webelement"+element
+					+" and Exception Message recieved is :"+exp.getMessage());
+		}
+		
+	}
+	
+	public static void selectFromDropBox(WebElement element, String visibleText){
+		try{
+			String[] txt=element.toString().split("->");
+			String elementString = txt[1].replaceAll("]]","]");
+			Select select=new Select(element);
+			log.info("Selecting "+visibleText+" from Dropbox :"+elementString);
+			select.selectByVisibleText(visibleText);
+		}catch (Exception exp){
+			log.info("Exception Occured while Selecting from Dropbox for Element :"+element
+					+", Exception Message Displayed :"+exp.getMessage());
+		}
+	}
+	
+	public static void deselectAllFromDropBox(WebElement element){
+		try{
+			String[] txt=element.toString().split("->");
+			String elementString = txt[1].replaceAll("]]","]");
+			log.info("deSelecting All From element text :"+elementString);
+			Select select=new Select(element);
+		    select.deselectAll();
+		}catch (Exception exp){
+			String[] txt=element.toString().split("->");
+			String elementString = txt[1].replaceAll("]]","]");
+			log.info("Exception Occured while deSelecting All from Dropbox :"+elementString);
+		}
+	}
+	
+	public static void click(WebElement element){
+		try{
+			String[] txt=element.toString().split("->");
+			String elementString = txt[1].replaceAll("]]","]");
+			log.info("Clicking on Webelement :"+elementString);
+			element.click();
+		}catch (Exception exp){
+			log.info("Exception Occurred while Clicking on Webelement :"+element);
+		}
+	}
+	
+	public static void doubleClick(WebElement element){
+		String[] txt=element.toString().split("->");
+		String elementString = txt[1].replaceAll("]]","]");
+		try{
+			log.info("Double Clicking on Webelement :"+elementString);
+			Actions act=new Actions(driver);
+			act.doubleClick().build().perform();
+		} catch(Exception exp){
+	        log.info("Exception Occured while trying to Double Click on Webelement"+elementString+
+	        		" , Exception Message Recieved :"+exp.getMessage());		
+		}
+	}
+	
+	public static void moveToElement(WebElement element){
+		String[] txt=element.toString().split("->");
+		String elementString = txt[1].replaceAll("]]","]");
+		try{
+			log.info("Moving Cursor to Webelement :"+elementString);
+		}catch (Exception exp){
+			log.info("Exception Occured while Moving Cursor to Webelement :"+elementString);
+		}
+	}
+	
+	public static void executeJavaScript(String jsScript,String jsObject){
+		try{
+			log.info("Performing javaScript Execution");
+			JavascriptExecutor jse = (JavascriptExecutor)driver;
+			jse.executeScript(jsScript, jsObject);
+		}catch (Exception exp){
+			log.info("Exception Occured while executing JavaScript :"+jsScript
+					+" on JavaObject :"+jsObject+" , Exception Messsage :"+exp.getMessage());
+		}
+	}
+	
+	public static void waitForElementExplicitly(WebElement element){
+		try{
+			String[] txt=element.toString().split("->");
+			String elementString = txt[1].replaceAll("]]","]");
+			log.info("Waiting Explicitly till 90 secs for the Element +"+elementString);
+			WebDriverWait wait =new WebDriverWait(driver, 90);
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+		}catch (Exception exp){
+			log.info("Exception Occured while waiting for element :"+element
+					+", Message Displayed is :"+exp.getMessage());
+		}
+	}
+
+	public static void waitForPageToLoad(int seconds){
+		try{
+			log.info("Waiting For the page to Load till :"+seconds +" secs");
+			driver.manage().timeouts().implicitlyWait(seconds,TimeUnit.SECONDS);
+		}catch (Exception exp){
+			log.info("Exception Occured while waiting For page to Load Implicitly,"
+					+ " Exception Message :"+exp.getMessage());
+		}
+	}
+	
+	public static void CaptureScreenshot(String ImageName){
+		try{
+			String imagePath=screenShotPath+ImageName+".png";
+			log.info("Capturing ScreenShot trigerred");
+			File source=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(source, new File(imagePath));
+		} catch (IOException exp){
+			log.warning("Exception Occured while taking Screenshot With Message ::"+exp.getMessage());
+		} catch(Exception exp){
+			exp.printStackTrace();
+		}
+	}
+	
+
+}

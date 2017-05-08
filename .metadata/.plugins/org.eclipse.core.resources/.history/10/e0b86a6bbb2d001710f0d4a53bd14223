@@ -1,0 +1,29 @@
+package Engine;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class reporter {
+	String Scenario ;
+    String result;
+    
+	public String getScenario() {
+		return Scenario;
+	}
+	
+	@XmlElement
+	public void setScenario(String scenario) {
+		Scenario = scenario;
+	}
+	public String getResult() {
+		return result;
+	}
+	
+	@XmlElement
+	public void setResult(String reult) {
+		this.result = reult;
+	}
+    
+    
+}

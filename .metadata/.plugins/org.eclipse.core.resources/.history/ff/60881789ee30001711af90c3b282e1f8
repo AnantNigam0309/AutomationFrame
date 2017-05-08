@@ -1,0 +1,56 @@
+package Engine;
+
+import java.io.IOException;
+import java.util.logging.Logger;
+import generics.selenuimHelper;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import cucumber.api.CucumberOptions;
+import cucumber.api.testng.TestNGCucumberRunner;
+import generics.constant;
+
+@CucumberOptions(features="src/test/resources/features/",
+glue="defintions",
+format= {"pretty","html:target/CampaignDestination","json:target/CampaignDestination/Campaign.json"},
+tags={"@CsTest"},
+monochrome=true,
+strict=false
+)
+public class testNGTestRunnerCampaign extends selenuimHelper {
+
+
+	private testNGTestRunnerCampaign(){
+		System.out.println("Object initialized for testNG Runner Campaign :)");
+		constant.log=Logger.getLogger(testNGTestRunnerCampaign.class.getSimpleName().toString());
+	}
+
+	@Parameters({"platform","browser","branch","buildNumber"})
+	@BeforeMethod
+	public void beforeMethod(String platform,String browser,String branch,String buildNumber) throws InterruptedException{
+		constant.platform=platform;
+		constant.browser=browser;
+		constant.branch=branch;
+		constant.buildNumber=buildNumber;
+		
+		taskManagerBeforeExecution.setLogger();
+		taskManagerBeforeExecution.deleteXMLDirectoryFiles();
+		initializer.initialize();
+	}
+
+	@Test(groups = "cucumber", description = "Runs Cucumber Features")
+	public void run_cukes() throws IOException {
+	  new TestNGCucumberRunner(getClass()).runCukes();
+	}
+	
+	@AfterMethod
+	public void afterMethod(){
+		/*xmlReporter rr=new xmlReporter("b","c");
+		rr.appendReport();
+		--> To create XML Report use this 
+		*/
+		System.out.println(ymlHelper.getObject("clusterUserDetails"));
+	}
+}

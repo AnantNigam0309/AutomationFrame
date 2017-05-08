@@ -1,0 +1,43 @@
+package utils;
+
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import org.codehaus.jackson.map.ObjectMapper;
+
+import generics.constant;
+
+public class jsonHelper extends constant{
+	
+	public jsonHelper(){
+		log=Logger.getLogger(jsonHelper.class.getSimpleName().toString());
+	}
+	
+	public static String GET_JSON_STRING_FROM_MAP( Map<String, Object> dataMap ) throws JacksonUtilityException {
+		
+	
+		if( dataMap == null || dataMap.isEmpty() ) {
+			log.info( "cannot convert data from map into json when map is null/empty" );
+			return new String(); // don't want to return null to avoid NPEs
+		}
+		
+		Writer writer = new StringWriter();		
+		try {
+		
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.writeValue( writer, dataMap );
+			
+		} catch( Throwable t ) {
+			
+			String msg = "unable to convert data from map into json: " + dataMap.toString();
+			log.warning( msg );
+			throw new JacksonUtilityException( msg );
+			
+		}
+		
+		return writer.toString();
+	}
+
+}

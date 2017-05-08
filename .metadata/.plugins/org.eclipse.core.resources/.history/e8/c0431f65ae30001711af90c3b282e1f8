@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="classes" thread-count="2">
+
+  <parameter name="platform" value="Ubuntu"></parameter>
+  <parameter name="browser" value="chrome"></parameter>
+  <parameter name="branch" value="Release1.1"></parameter>
+  <parameter name="buildNumber" value="1"></parameter>
+  
+  <listeners>
+    <listener class-name="generics.listner"></listener>
+  </listeners>
+  
+  <test name="Test">
+    <classes>
+      <class name="Engine.testNGTestRunnerCampaign"/>
+    </classes>
+  </test> <!-- Test -->
+  
+  <test name="Test">
+    <classes>
+      <class name="Engine.testNGTestRunnerCCMS"/>
+    </classes>
+  </test>
+</suite> <!-- Suite -->

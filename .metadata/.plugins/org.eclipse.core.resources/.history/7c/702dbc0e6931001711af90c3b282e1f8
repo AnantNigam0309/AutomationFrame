@@ -1,0 +1,15 @@
+package utils;
+
+import java.util.logging.Logger;
+
+import Engine.testNGTestRunnerCampaign;
+import generics.constant;
+
+public class jsonHelper extends constant{
+	
+	public jsonHelper(){
+		log=Logger.getLogger(jsonHelper.class.getSimpleName().toString());
+	}
+
+	
+}

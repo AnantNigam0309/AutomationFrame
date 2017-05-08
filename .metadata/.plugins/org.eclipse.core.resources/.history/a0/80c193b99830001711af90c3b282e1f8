@@ -1,0 +1,38 @@
+package utils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
+
+public class generateReportCucumber {
+	public static void GenerateMasterthoughtReport(String Platform,String Browser,String Branch){
+        try{
+            File reportOutputDirectory = new File("target/Masterthought");
+            List<String> list = new ArrayList<String>();
+            list.add("target/CampaignDestination/Campaign.json");
+            list.add("target/CCMSDestination/CCMS.json");
+
+            String buildNumber = "1";
+            boolean runWithJenkins = false;
+            boolean parallelTesting = true;
+
+            Configuration configuration= new Configuration(reportOutputDirectory, "Capillary Reporting");
+            configuration.setParallelTesting(parallelTesting);
+            configuration.setRunWithJenkins(runWithJenkins);
+            configuration.setBuildNumber(buildNumber);
+         
+            configuration.addClassifications("Platform", Platform);
+            configuration.addClassifications("Browser", Browser);
+            configuration.addClassifications("Branch", Branch);
+            ReportBuilder reportBuilder=new ReportBuilder(list, configuration);
+
+            reportBuilder.generateReports();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+}

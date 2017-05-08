@@ -1,0 +1,5 @@
+package exceptionsDefined;
+
+public class FirebaseException {
+
+}

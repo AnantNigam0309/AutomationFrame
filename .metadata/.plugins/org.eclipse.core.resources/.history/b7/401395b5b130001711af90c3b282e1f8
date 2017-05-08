@@ -1,0 +1,24 @@
+package generics;
+
+
+import java.util.logging.Logger;
+
+import Engine.testngTestRunnerCCMS;
+import utils.fileHelper;
+
+public class objectInitializer extends constant{
+	
+	public objectInitializer(){
+		System.out.println("Wrapping up all classes and Initializing Object");
+		log=Logger.getLogger(objectInitializer.class.getSimpleName().toString());
+	}
+
+	public void initialize(){
+		try{
+			file = new fileHelper();	
+		}catch(Exception exp){
+			log.info(exp.getMessage());
+		}
+	}
+	
+}

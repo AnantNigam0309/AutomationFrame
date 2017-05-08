@@ -1,0 +1,25 @@
+package generics;
+
+import java.util.logging.Logger;
+
+import Engine.reporter;
+import testManager.afterExecution;
+import testManager.beforeExecution;
+import utils.fileHelper;
+import utils.xmlReporter;
+
+public class constant{
+
+	public static String rootPath = System.getProperty("user.dir").replace("\\", "/");
+	public static Logger log = null;
+	public static String logFileLocation=rootPath+"/src/test/resources/logs/loggerFile.log";
+	public static String xmlReportingPath=rootPath+"/src/test/resources/xmlResults/";
+	
+	public static beforeExecution taskManagerBeforeExecution=new beforeExecution();
+	public static afterExecution taskManagerAfterExecution=new afterExecution();
+	public static objectInitializer initializer =new objectInitializer();
+	public static fileHelper file = null;
+	public static xmlReporter xmlReport=null;
+	public static reporter repo=null;
+	
+}

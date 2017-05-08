@@ -1,0 +1,11 @@
+---
+nightly: 
+  url: https://nightly.capillary.in/
+  username: ashish
+  password: 12
+staging:
+  url:
+  username:
+  password: 
+apac2:
+  url:

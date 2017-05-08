@@ -1,0 +1,127 @@
+package com.capillary.automation.platform.utils;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
+
+import org.json.simple.JSONObject;
+
+import com.capillary.automation.platform.resources.base.PlatformTestHelper;
+
+
+public class ResultPublisher extends PlatformTestHelper	{
+
+	public static String sendPOSTURL(String url, String postParams, String htmlFileToUpload, String xmlFileToUpload) throws Exception	{
+		String boundary = Long.toHexString(System.currentTimeMillis()); // Just generate some unique random value.
+		URLConnection connection = new URL(url).openConnection();
+		
+		connection.setDoOutput(true); // This sets request method to POST.
+		connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+		connection.setConnectTimeout(15000);
+		PrintWriter writer = null;
+		
+		try {
+		    writer = new PrintWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
+
+		    writer.println("--" + boundary);
+		    writer.println("Content-Disposition: form-data; name=\"data\"");
+		    writer.println("Content-Type: text/plain; charset=UTF-8");
+		    writer.println();
+		    writer.println(postParams);
+            
+		    if(htmlFileToUpload.length() != 0)	{
+		    	
+			    writer.println("--" + boundary);
+			    writer.println("Content-Disposition: form-data; name=\"file\"; filename=\"test.html\"");
+			    writer.println("Content-Type: html; charset=UTF-8");
+			    writer.println();
+			    BufferedReader reader = null;
+			    try {
+			        reader = new BufferedReader(new InputStreamReader(new FileInputStream(htmlFileToUpload), "UTF-8"));
+			        for (String line; (line = reader.readLine()) != null;) {
+			            writer.println(line);
+			        }
+			    } finally {
+			        if (reader != null) try { reader.close(); } catch (IOException logOrIgnore) {}
+			    }
+		    }
+		    
+		    if(xmlFileToUpload.length() != 0)	{
+			    writer.println("--" + boundary);
+			    writer.println("Content-Disposition: form-data; name=\"xml\"; filename=\"test.xml\"");
+			    writer.println("Content-Type: xml; charset=UTF-8");
+			    writer.println();
+			    BufferedReader reader = null;
+			    try {
+			        reader = new BufferedReader(new InputStreamReader(new FileInputStream(xmlFileToUpload), "UTF-8"));
+			        for (String line; (line = reader.readLine()) != null;) {
+			            writer.println(line);
+			        }
+			    } finally {
+			        if (reader != null) try { reader.close(); } catch (IOException logOrIgnore) {}
+			    }
+		    }
+		    
+		    writer.println("--" + boundary + "--");
+		} finally {
+		    if (writer != null) writer.close();
+		}
+		
+		if(htmlFileToUpload.length() != 0)	{
+			// Connection is lazily executed whenever you request any status.
+			return Utils.intToString(((HttpURLConnection) connection).getResponseCode());
+		}
+		else	{
+			BufferedReader in = new BufferedReader(
+				        new InputStreamReader(connection.getInputStream()));
+			
+        	
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+	        
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+			return(response.toString());
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void sendResultsOfTest(String suite, String htmlFileName, String xmlFileName) throws Exception	{
+		String url = INDEX_SERVER + "/upload";
+
+		JSONObject urlObject = new JSONObject();
+//		urlObject.put("pass", pass);
+//		urlObject.put("fail", fail);
+//		urlObject.put("startTime", startTime);
+//		urlObject.put("endTime", endTime);
+		urlObject.put("suite", suite);
+		urlObject.put("publish", POSTRESULTS);
+//		urlObject.put("total", total);
+//		urlObject.put("skip", skip);
+		urlObject.put("serverUrl", InetAddress.getLocalHost().getHostName());
+		urlObject.put("environment", ENVIRONMENT);
+		urlObject.put("orgName", ORG_NAME);
+		System.out.println(urlObject.toJSONString());
+		if(sendPOSTURL(url, urlObject.toJSONString(), htmlFileName, xmlFileName).contentEquals("200"))	{
+			System.out.println("Done sending response");
+			System.exit(0);
+		}
+//			return true;
+//		return false;
+	}
+	
+//	public static void main(String argv[]) throws Exception	{
+//		String htmlFileName = "C:\\Users\\pritish.pratap\\.hudson\\jobs\\ImportExportDailyScheduler\\workspace\\target\\surefire-reports\\emailable-report.html";
+//		String xmlFileName = "C:\\Users\\pritish.pratap\\.hudson\\jobs\\ImportExportDailyScheduler\\workspace\\target\\surefire-reports\\testng-results.xml";
+//		sendResultsOfTest("sanity", htmlFileName, xmlFileName);
+//	}
+}	

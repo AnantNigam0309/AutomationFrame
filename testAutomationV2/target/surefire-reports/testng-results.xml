@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+    <line>
+      <![CDATA[<div "featureFile">Feature File: testModule.feature</div>]]>
+    </line>
+    <line>
+      <![CDATA[<div "feature">Feature: This is a Test file used to do a dry run</div>]]>
+    </line>
+    <line>
+      <![CDATA[<div "scenario">Scenario: Test Scene</div>]]>
+    </line>
+    <line>
+      <![CDATA[<div "result">Given  I am navigating to site (passed : 0s)</div>]]>
+    </line>
+  </reporter-output>
+  <suite name="Suite" duration-ms="3898" started-at="2017-05-08T08:57:05Z" finished-at="2017-05-08T08:57:09Z">
+    <groups>
+      <group name="cucumber">
+        <method signature="testNGTestRunnerCampaign.run_cukes()[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="run_cukes" class="Engine.testNGTestRunnerCampaign"/>
+      </group> <!-- cucumber -->
+    </groups>
+    <test name="CampaignTestCases" duration-ms="3898" started-at="2017-05-08T08:57:05Z" finished-at="2017-05-08T08:57:09Z">
+      <class name="Engine.testNGTestRunnerCampaign">
+        <test-method status="PASS" signature="beforeMethod(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="beforeMethod" is-config="true" duration-ms="1282" started-at="2017-05-08T14:27:05Z" finished-at="2017-05-08T14:27:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Ubuntu]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Nightly]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="run_cukes()[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="run_cukes" duration-ms="332" started-at="2017-05-08T14:27:06Z" description="Runs Cucumber Features" finished-at="2017-05-08T14:27:06Z">
+          <reporter-output>
+            <line>
+              <![CDATA[<div "featureFile">Feature File: testModule.feature</div>]]>
+            </line>
+            <line>
+              <![CDATA[<div "feature">Feature: This is a Test file used to do a dry run</div>]]>
+            </line>
+            <line>
+              <![CDATA[<div "scenario">Scenario: Test Scene</div>]]>
+            </line>
+            <line>
+              <![CDATA[<div "result">Given  I am navigating to site (passed : 0s)</div>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- run_cukes -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="afterMethod" is-config="true" duration-ms="2271" started-at="2017-05-08T14:27:06Z" finished-at="2017-05-08T14:27:09Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+      </class> <!-- Engine.testNGTestRunnerCampaign -->
+    </test> <!-- CampaignTestCases -->
+  </suite> <!-- Suite -->
+</testng-results>

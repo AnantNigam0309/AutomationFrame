@@ -1,0 +1,2877 @@
+package com.capillary.automation.platform.resources.base;
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.NoSuchElementException;
+import java.util.Properties;
+import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.keyczar.Crypter;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+import org.testng.Reporter;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+
+import com.capillary.automation.platform.objects.ImportObjects;
+import com.capillary.automation.platform.resources.generatecsv.GenerateCSVCustomerPromotion;
+import com.capillary.automation.platform.resources.generatecsv.GenerateCSVLoyaltyCustomer;
+import com.capillary.automation.platform.utils.DBQueryHelper;
+import com.capillary.automation.platform.utils.OrgDetailHelper;
+import com.capillary.automation.platform.utils.Utils;
+import com.capillary.automation.platform.utils.i18nStringLibrary;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.google.common.io.Files;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.sun.jna.platform.win32.WinNT.WELL_KNOWN_SID_TYPE;
+/**
+ * @author Pritish Pratap.
+ */
+public class PlatformTestHelper extends SeleniumHelper {
+
+	//List of all the filepaths that will be used for the automation
+//	protected String CustomerLoyaltyRegistrationFilePath = this.getClass().getResource("/com/capillary/automation/platform/resources/base/csv/NewCustomerRegistration.csv").getFile().replaceFirst("/",  "");
+	
+	public static String newOrgId = "";
+	protected static  Logger log = Logger.getLogger(PlatformTestHelper.class.getName());
+	public static String LOG_FILE_LOCATION = "C:\\logs\\javalogger.log";
+	public static String importLogPath = "C:\\logs\\java\\import";
+	public static String OS;
+	public static String TEST_URL;
+	protected static String USER_ID;
+	protected static String PASSWORD;
+	public static String ORG_ID;
+	public static String ORG_NAME;
+	public static String SECONDARY_ORG_NAME;
+	public static String SECONDARY_ORG_ID;
+	public static String LANGUAGE;
+	public static String[] STOREID;
+	public static String[] STORECODE;
+	public static String PROGRAM_ID;
+	public static String INDEX_SERVER;
+	public static String BULK_MOBILE_PREFIX;
+	public static String LANGUAGEID;
+	public static String TIMEOFFSETID;
+	public static String CURRENCYID;
+	public static String COUNTRYCODE;
+	public static String DBUSERNAME;
+	public static String DBPASSWORD;
+	public static String DBURL;
+	public static String FTPPORT;
+	public static String SFTPSERVERNAME;
+	public static String SFTPUSERNAME;
+	public static String SFTPPASSWORD;
+	public static String SFTPPORT;
+	public static String EXPORTSTARTTIME;
+	public static String EXPORTENDTIME;
+	public static String POSTRESULTS;
+	public static String ENVIRONMENT;
+	public static String SUITETYPE; 
+	public static String TESTER;
+	public static String PORTFORWARDING;
+	public static String MAINDB;
+	public static String METADB;
+	public static String WAREHOUSEDB;
+	public static String BILLDUMPDB;
+	public static String TIMESTAMP = Utils.generateReadableDate("yyyy-MM-dd_HH.mm.ss");
+	public static String NUMBEROFTIERS;
+	public static String OLD_ORG_ID;
+	public static String OLD_ORG_NAME;
+	public static String[] OLD_STORECODE;
+	public static String[] OLD_STOREID;
+	public static String OLD_NUMBEROFTIERS;
+	public static String BUILD_NUMBER;
+	public static String TYPE_OF_SUITE;
+	public static String SUITE;
+	public static String LONGITUDE;
+	public static double LONGITUDEID;
+	
+	public static String ABORT_FILE = "C:\\cgrid\\abort\\abort";
+	public static String FAILURE_FILE = "C:\\cgrid\\ReportFailure\\failure";
+	public static boolean isAborted = false;
+	//This param checks to see if an org is found that can be used to run automation. If no org is found, platform test helper exits.
+	public static boolean orgUsable = false;
+	
+	public static String csvStoragePath = "C:\\CSVStorage1\\";
+	public static String CustomerDetails1 = "C://CustomerRegistration1.csv";
+	public static String runArtefactsPath = "C:\\CSVStorage\\TestArtefacts\\" + TIMESTAMP + "\\";
+	public static String dateFormat = "yyyy/MM/dd HH:mm:ss"; 
+	
+	//Concepts constants
+	public static String conceptCodePrefix = "autoconcepts";
+	public static String conceptNamePrefix = "AutoConcepts ";
+	
+	//Zones constants
+	public static String zoneCodePrefix = "utozones";
+	public static String zoneNamePrefix = "Autozones";
+	//Stores constants
+	public static String storeCodePrefix = "autostores";
+	public static String storeNamePrefix = "autostores";
+	
+	//Storetills constants
+	public static String storeTillCodePrefix = "autostoretills";
+	public static String storeTillNamePrefix = "autostoreTills";
+	
+	//CSV constants
+	public static String MOBILEVALUEPREFIX = "98";
+	public static int mobileValueLimit = 100000000;
+	public static int extIdValueLimit = 999999999;
+	public static int transactionNumberLimit = 100000;
+	public static int transactionValueLimit = 10000;
+	public static int itemIdLimit = 1000;
+	public static int rateValueLimit = 1000;
+	public static int quantityValueLimit = 10;
+	public static int conceptLimit = 1000000;
+	public static int zoneLimit = 1000000;
+	public static int storeLimit = 1000000;
+	public static int storeTillLimit = 1000000;
+	
+	public static String expectedTemplate = "Pritish_Testing";
+	
+	public int getOrgCounter = 0;
+	
+	//These variables are for export related cases
+	public static String TESTERNAME = "Pritish Pratap";
+	public static String FTPSERVERNAME = "data.capillarydata.com";
+	public static String FTPUSERNAME = "capillary";
+	public static String FTPPASSWORD = "captech123";
+	public static String TIMEZONE = "IST";
+	public static String EXPORTFTPPATH = "/Capillary Testing/exportAutomationTestFolder/";
+	
+	/*
+	 * For selection of profiles, it will be necessary to maintain a list of all profiles
+	 * and their associated value numbers.
+	 */
+	public static final Map<String, String> profileNames = new HashMap<String, String>();
+	public static final Map<String, String> urlNames = new HashMap<String, String>();
+	
+	/*
+	 * This file handles storage of the user subscription data prior to it being consumed
+	 * by the apps automation script.
+	 */
+	public static String fileLocationForUserSubscriptionData = "C://drivers/membercare_subscription_" + Utils.generateCurrentEpochTime() + ".properties";
+	
+	/*
+	 * i18n support
+	 */
+//	public static List<String> i18nWordList = new ArrayList<String>();
+	public static i18nStringLibrary i18n = null;
+	
+	//Object of ImportObjects
+	public static ImportObjects iO = new ImportObjects();
+	
+	@BeforeSuite(groups = {"smoke", "acceptance"})
+	public void beforeSuite()
+	{
+		try	
+		{
+			System.out.println("Running Before Suite");
+			Map<String, String> urls = new HashMap<String, String>();
+			urls.put("nightly", "https://nightly.capillary.in");
+			urls.put("staging", "https://intouch.staging.capillary.in");
+			urls.put("eu", "http://eu.intouch.capillarytech.com/");
+			urls.put("us", "http://us.intouch.capillarytech.com/");
+			urls.put("more", "https://apac2.intouch.capillarytech.com/");
+			urls.put("india", "https://intouch.capillary.co.in");
+			urls.put("china", "https://intouch.capillarytech.cn.com");
+			urls.put("mumbai","https://mb.intouch.capillarytech.com");
+			
+			Properties prop = new Properties();
+			prop.load(new FileInputStream("config.properties"));
+			ENVIRONMENT = prop.getProperty("environment");
+			INDEX_SERVER = "http://apitester.capillary.in/apitest_app";
+			TEST_URL = urls.get(ENVIRONMENT.toLowerCase());
+			
+			/* Getting and formating current time of the system */
+			SimpleDateFormat s = new SimpleDateFormat("HH:mm:ss");
+			Date d = new Date();
+			
+			@SuppressWarnings("rawtypes")
+			List<HashMap> tempOrgDetails = OrgDetailHelper.fetchOrgDetails(-1);
+			
+			if(tempOrgDetails.size() == 0)	{
+				log.info("Unable to obtain any orgs from db. Quitting!");
+				Utils.writeReportFailedFile();
+				System.exit(1);
+			}
+			
+			//Now from this list of orgs obtained get only the ones that are applicable to this cluster.
+			@SuppressWarnings("rawtypes")
+			List<HashMap> orgList = new ArrayList<HashMap>();
+			for(int i = 0; i < tempOrgDetails.size(); i++){
+			//Find all the orgs that match the needed environment and add it to the orgList.
+			//System.out.println(tempOrgDetails.get(i).get("shard").toString().toLowerCase());
+				if(tempOrgDetails.get(i).get("shard").toString().toLowerCase().contains(ENVIRONMENT.toLowerCase()) 
+						&& tempOrgDetails.get(i).get("inUse").toString().contains("1") && Utils.stringToInt(tempOrgDetails.get(i).get("tierCount").toString()) <= 3 )
+					orgList.add(tempOrgDetails.get(i));
+			}
+			
+			
+			System.out.println("OrgList --- >"+orgList);
+			
+			
+			log.info("Setting the org in use value to 0 and enabling the  org to be cosumed for automation");
+			
+			
+			if(tempOrgDetails.size() > 0)
+			{
+				for(int i = 0 ; i < tempOrgDetails.size(); i++)	
+				{
+					System.out.println("First   "+tempOrgDetails.get(i));
+					String timeInDB = tempOrgDetails.get(i).get("inUseLastTime").toString().split(" ")[1];
+					String systemTime = s.format(d);
+					
+					/*Checking for the difference in time of org in use in DB to current system time. If the difference is greater than 60 minutes
+					 * set the org in use value to 0
+					 */
+				
+					long timeDiffInMin = ((s.parse(systemTime).getTime() /  (1000*60) - (s.parse(timeInDB).getTime()/(1000*60))));
+					if(timeDiffInMin > 60)
+					{
+						if(tempOrgDetails.get(i).get("inUse").toString().contentEquals("1") && tempOrgDetails.get(i).get("shard").toString().toLowerCase().contains(ENVIRONMENT.toLowerCase()))
+						{
+							String orgId = tempOrgDetails.get(i).get("orgId").toString();
+							String numberOfTiers = tempOrgDetails.get(i).get("tierCount").toString();
+							OrgDetailHelper.modifyOrgDetails(INDEX_SERVER, TEST_URL, orgId, "", numberOfTiers, "0");   
+						}
+					}
+				}
+				System.exit(1);
+			}
+		}
+		catch(Exception e)	{
+			System.out.println("Unable to update the org details. " + e);
+		}
+	}
+	
+	@AfterSuite(groups = {"smoke", "acceptance"})
+	public static void afterSuite()	{
+		try	{
+			OrgDetailHelper.modifyOrgDetails(ORG_ID, "", NUMBEROFTIERS, "0");
+			//Also, if there are any orgs that have inUse set to 1 but the inUseLastTime set to 1 day older than today, then set the inUse field of that org to 0.
+			String dayBeforeYesterdayDate = Utils.generateDate(-1, "YYY-MM-dd");
+			log.info("Setting the org value to 0");
+			@SuppressWarnings("rawtypes")
+			
+			List<HashMap> tempOrgDetails = OrgDetailHelper.fetchOrgDetails(-1);
+			for(int i = 0 ; i < tempOrgDetails.size(); i++)	{
+				if(Utils.isOlderThanDate(tempOrgDetails.get(i).get("inUseLastTime").toString().split(" ")[0], dayBeforeYesterdayDate)
+						&&  tempOrgDetails.get(i).get("inUse").toString().contentEquals("1") && tempOrgDetails.get(i).get("shard").toString().contains(ENVIRONMENT))	{
+					String orgId = tempOrgDetails.get(i).get("orgId").toString();
+					String numberOfTiers = tempOrgDetails.get(i).get("tierCount").toString();
+					OrgDetailHelper.modifyOrgDetails(orgId, "", numberOfTiers, "0");
+				}
+			}
+		}
+		catch(Exception e)	{
+			System.out.println("Unable to update the org details. " + e);
+		}
+		//If the abort file is set. Delete it.
+		File abortFile = new File(ABORT_FILE);
+		if(abortFile.isFile())	{
+			System.out.println("Abort file is present. Deleting it...");
+			abortFile.delete();
+		}
+		File failureFile = new File(FAILURE_FILE);
+		if(failureFile.isFile()){
+			System.out.println("Failure file is present. Deleting it...");
+			failureFile.delete();
+		}
+	}
+	
+//	@AfterSuite(groups = {"smoke", "acceptance"})
+//	public static void afterSuite()	{
+//		/*
+//		 * The goal of this method is to copy the emailable report to the artefacts folder.
+//		 */
+//		//Get the path of the emailable report first.
+////		final File f = new File(this.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+//		String emailableReportPath = System.getProperty("user.dir") + "\\test-output\\emailable-report.html";
+//		try	{	
+//			FileUtilsHelper.copyFileUsingApacheCommonsIO(emailableReportPath, runArtefactsPath + "\\testreport.html");
+//		}
+//		catch(Exception e)	{
+//			log.info("Unable to save emailable report - " + e);
+//		}
+//	}
+	
+	public static void getOrg(String type) throws Exception	{
+		Properties prop = new Properties();
+		try {
+			/*
+			 * Initializing URLs
+			 */
+				urlNames.put("nightly", "https://nightly.capillary.in");
+				urlNames.put("staging", "https://intouch.staging.capillary.in");
+				urlNames.put("eu", "http://eu.intouch.capillarytech.com/");
+				urlNames.put("us", "http://us.intouch.capillarytech.com/");
+				urlNames.put("more", "https://apac2.intouch.capillarytech.com/");
+				urlNames.put("india", "https://intouch.capillary.co.in");
+				urlNames.put("china", "https://intouch.capillarytech.cn.com");
+				urlNames.put("mumbai","https://mb.intouch.capillarytech.com");
+				//load a properties file.
+				prop.load(new FileInputStream("config.properties"));
+				ENVIRONMENT = prop.getProperty("environment");
+				BUILD_NUMBER = prop.getProperty("buildnumber");
+				TYPE_OF_SUITE = prop.getProperty("typeofsuite");
+				SUITETYPE = prop.getProperty("typeofsuite");
+				
+				SUITE = prop.getProperty("suitename");				
+				LANGUAGE = prop.getProperty("language");
+				LONGITUDE = prop.getProperty("longitude");
+				COUNTRYCODE = "91";
+				TESTER=prop.getProperty("tester");
+				getAuth();
+				TEST_URL = urlNames.get(ENVIRONMENT.toLowerCase());
+				POSTRESULTS = prop.getProperty("postresults");
+				CURRENCYID="95";
+				LANGUAGEID="151";
+				TIMEOFFSETID="42";
+				LONGITUDEID = 123.98;
+				//This is the log file location. To be moved to a config file sometime soon.
+								
+				//Now we query the apitester DB to get a bunch of valid orgs on which the tests will be run.
+				@SuppressWarnings("rawtypes")
+				List<HashMap> tempOrgDetails = OrgDetailHelper.fetchOrgDetails(-1);
+				if(tempOrgDetails.size() == 0)	{
+					log.info("Unable to obtain any orgs from db. Quitting!");
+					Utils.writeReportFailedFile();
+					System.exit(1);
+				}
+				//Now from this list of orgs obtained get only the ones that are applicable to this cluster.
+				@SuppressWarnings("rawtypes")
+				List<HashMap> orgList = new ArrayList<HashMap>();
+				for(int i = 0; i < tempOrgDetails.size(); i++){
+				//Find all the orgs that match the needed environment and add it to the orgList.
+					if(tempOrgDetails.get(i).get("shard").toString().toLowerCase().contains(ENVIRONMENT.toLowerCase()) 
+							&& tempOrgDetails.get(i).get("inUse").toString().contains("0") && Utils.stringToInt(tempOrgDetails.get(i).get("tierCount").toString()) <= 3 )
+						orgList.add(tempOrgDetails.get(i));
+				}
+				Random random = new Random();
+				/*
+				 * If the size of the orgList is 0, then it means that no orgs are available to run the
+				 * test. So, we will have to return the job back to the queue. 
+				 */
+				if(orgList.size() == 0)	{
+					log.info("Unable to get any orgs for this combination. Maybe all orgs are in use?");
+					Utils.writeReportFailedFile();
+					System.exit(1);
+				}
+				@SuppressWarnings("rawtypes")
+				HashMap orgDetails = orgList.get(random.nextInt(orgList.size()));
+				//Before assigning these values, check if the older values exist and if they do, 
+				//Go ahead and save a copy of them
+				if(type.contentEquals("TierCreation") && ORG_ID.length() != 0)	{
+					OLD_ORG_ID = ORG_ID;
+					OLD_ORG_NAME = ORG_NAME;
+					OLD_STORECODE= STORECODE;
+					OLD_STOREID = STOREID;
+					OLD_NUMBEROFTIERS = NUMBEROFTIERS;
+				}
+				ORG_ID = orgDetails.get("orgId").toString().replaceAll("\"", "");
+				ORG_NAME = orgDetails.get("orgName").toString().replaceAll("\"", "");
+				STORECODE= orgDetails.get("stores").toString().replaceAll("\"", "").split(":");
+				STOREID = orgDetails.get("storeTills").toString().replaceAll("\"", "").split(":");
+				NUMBEROFTIERS = orgDetails.get("tierCount").toString();
+				/*
+				 * 
+				 */
+				////////////////////////////////////////
+//				newOrgId = "1334"; //Autotest1 (Nightly1)	
+//				newOrgId = "1359"; //Cool Map (US)
+//				ORG_ID = "1359";//Watches (Staging2)
+//				ORG_ID = "4"; //Mantle (Staging1)
+//				ORG_ID = "388"; //Redemption_01 (Staging1)
+//				ORG_ID = "1443"; //Loyalty_Redemptions_Auto (Nightly)
+//				newOrgId = "1054"; //Monty (Nightly1)
+//				newOrgId = "150260";
+//				newOrgId = "549"; //Python_Auto (Staging)
+//				newOrgId = "150273"; //Import_DB_Sharding (APAC2)
+//				newOrgId = "1258"; //Chinese (India)
+//				newOrgId = "1139";
+//				newOrgId = "372";
+//				newOrgId = "786";
+//				newOrgId = "1337";
+//				newOrgId = "150259";
+//				newOrgId = "100037"; (EU - ABCBooks)
+//				newOrgId = "1359";
+//				newOrgId = "583";
+//				newOrgId = "581";
+//				newOrgId = "200008";
+//				newOrgId = "1333";
+//				newOrgId = "1422";
+			////////////////////////////////////////
+				/*
+				 * 
+				 */
+//				ORG_ID = "150015";
+//				ORG_NAME = "ABCBooks Test";
+//				STORECODE = "1000".split(":");
+//				STOREID = "ss.till1".split(":");
+//				ORG_ID = "1329";
+//				ORG_NAME = "EMFORG_1421145532";
+//				STORECODE = "store1".split(":");
+//				STOREID = "storetill1_1329".split(":");
+//				ORG_ID = "373";
+//				ORG_NAME = "CAMPAIGNS_AUTO";
+//				STORECODE = "auto1".split(":");
+//				STOREID = "auto.1".split(":");
+//				ORG_ID = "586";
+//				ORG_NAME = "Landmark_perf";
+//				STORECODE = "lifestylestore1".split(":");
+//				STOREID = "lm.1".split(":");
+//				ORG_ID = "1054";//"Monty";
+//				ORG_ID = "1084";
+//				ORG_NAME = "Shivajinagar";
+//				STORECODE = "centralstore".split(":");
+//				STOREID = "aafyezlnlw65".split(":");
+//				ORG_ID = "786"; //1084
+//				ORG_NAME = "CAMPAIGNS_AUTO";
+//				STORECODE = "bookstore987:bookstore988".split(":");
+//				STOREID = "993754".split(":");
+//				ORG_ID = "150260";
+//				ORG_NAME = "Mantle Three";
+//				STORECODE = "threestore".split(",");
+//				STOREID = "threetill1".split(",");
+//				NUMBEROFTIERS = "3";
+//				ORG_ID = "592";
+//				ORG_NAME = "Warehouse_DB_PEB";
+//				STORECODE = "store.ware.db.peb".split(",");
+//				STOREID = "ware.peb.db.1".split(",");
+//				NUMBEROFTIERS = "3";
+//				ORG_ID = "150128";
+//				ORG_NAME = "IMPORT_TEST_ORG";
+//				STORECODE= "store".split(",");
+//				STOREID = "storetill_150128".split(",");
+//				NUMBEROFTIERS = "3";
+//				ORG_ID = "1247";
+//				ORG_NAME = "ImportTestOrg_101";
+//				STORECODE = "store1247".split(",");
+//				STOREID = "storetill1247".split(",");
+//				NUMBEROFTIERS = "3";
+//				ORG_ID = "549";
+//				ORG_NAME = "PYTHON_AUTO";
+//				STORECODE = "sdfsg".split(",");
+//				STOREID = "py.003".split(",");
+//				NUMBEROFTIERS = "3";
+//				ORG_ID = "50039";
+//				ORG_NAME = "ABCBooks Test";
+//				STORECODE = "cstr1".split(",");
+//				STOREID = "counter.watch1".split(",");
+//				NUMBEROFTIERS = "3";
+				log.info("ORG DETAILS CHOSEN");
+				log.info("ORG NAME - " + ORG_NAME);
+				log.info("ORG ID  - " + ORG_ID);
+				log.info("ORG STORES - " + STORECODE);
+				log.info("ORG STORE TILLS - " + STOREID);
+				/*
+				 * Deciding which shard the org belongs to.
+				 */
+				/*
+				 * If it is any of the prods we want to run on, then 
+				 * don't bother. There is only one shard. Otherwise, 
+				 * discover the org/shard just by orgname/id.
+				 */
+				if(newOrgId != ORG_ID && newOrgId.length() != 0)	{
+					ORG_ID = newOrgId;
+				}
+				String query = "select `organizations`.`name` from `masters`.`organizations` where `organizations`.`id` = " + ORG_ID;
+				if(ENVIRONMENT.toLowerCase().contentEquals("eu") 
+						|| ENVIRONMENT.toLowerCase().contentEquals("us")
+						|| ENVIRONMENT.toLowerCase().contentEquals("ci"))	{
+					MAINDB = ENVIRONMENT;
+					WAREHOUSEDB = ENVIRONMENT;
+				}
+				else if(ENVIRONMENT.toString().toLowerCase().contentEquals("more"))	{
+					//Since more has 3 shards now, they need to be handled
+					getOrgShard(query, 4);	
+				}
+				else	{
+					//In case of nightly and staging only 2 shards are there. 
+					getOrgShard(query, 2);
+				}
+				if(newOrgId.length() != 0)	{
+					ORG_NAME = DBQueryHelper.queryOrganizationsTable("name", "id", ORG_ID, "")[0][0];
+					STORECODE = DBQueryHelper.queryOrgEntitiesTable("code", "type", "STORE", "LIMIT 1")[0];
+					STOREID = DBQueryHelper.queryOrgEntitiesTable("code", "type", "TILL", "LIMIT 1")[0];
+				}
+				METADB = ENVIRONMENT + "meta";
+				BILLDUMPDB = ENVIRONMENT + "billdump";
+				System.out.println(MAINDB);
+				//Getting the program id for the org
+				PROGRAM_ID = DBQueryHelper.queryProgramsTable("id", "org_id", ORG_ID, "")[0][0];
+				//Once all is good, just set the value of the inUse param to 1 in the DB for the org.
+				OrgDetailHelper.modifyOrgDetails(ORG_ID, "", NUMBEROFTIERS, "1");
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void getOrgShard(String query, int shardCount) throws Exception{
+		String[][] response = new String[1][1];
+		String cluster = "";
+		for(int i = 1; i <= shardCount; i++)	{
+			try	{
+				cluster = ( i == 1) ? ENVIRONMENT : ENVIRONMENT + i;
+				response = DBQueryHelper.queryDB(cluster, query);
+				if(response.length == 0)
+					System.out.println("Org is not in shard " + i);
+				else	{
+					if(ENVIRONMENT.contentEquals("Nightly") || ENVIRONMENT.contentEquals("staging"))	{
+						MAINDB = cluster;
+						WAREHOUSEDB = ( i == 1 ) ? ENVIRONMENT + "warehouse" : ENVIRONMENT + "warehouse" + i;
+					}
+					else	{
+						MAINDB = cluster;
+						WAREHOUSEDB = cluster;
+					}
+					break;
+				}					
+			}
+			catch(Exception e){
+				System.out.println("Org is not in shard " + i);
+			}
+		}
+		if(MAINDB == null || WAREHOUSEDB == null){
+			throw new Exception();
+		}
+	}
+	
+	public String getTableNameFromURL(String url) throws Exception{
+//		Map<String, String> urlComponents = new HashMap<String, String>();
+		List<NameValuePair> urlParameters = URLEncodedUtils.parse(new URI(url), "UTF-8");
+		for(NameValuePair urlParameter : urlParameters)		{
+			System.out.println(urlParameter.getName());
+			if(urlParameter.getName().contentEquals("table_name"))
+				return urlParameter.getValue();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("resource")
+	public boolean isOrgUsable() throws Exception	{
+		try	{
+			//It makes sense to maintain some form of logging to understand which orgs have deficiencies. 
+			//Thus, a deficienty file will be maintained which will log the following
+			//-Name of org, orgId, environment, deficiency.
+			String boilerPlate = ORG_NAME + " " + ORG_ID + " " + ENVIRONMENT + " ";
+			File file = new File("C:\\logs\\org_deficieny.log");
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			//Check if concept exists.
+			String[][] dbResponse = DBQueryHelper.queryOrgEntitiesTable("type", "type", "CONCEPT", "LIMIT 10");
+			if(dbResponse.length == 0)	{
+				bw.write(boilerPlate + "Concept does not exist.\n");
+				bw.close();
+				return false;
+			}
+			//Check if concept exists.
+			dbResponse = DBQueryHelper.queryOrgEntitiesTable("type", "type", "ZONE", "LIMIT 10");
+			if(dbResponse.length == 0)	{
+				bw.write(boilerPlate + "Zone does not exist.\n");
+				bw.close();
+				return false;
+			}
+			dbResponse = DBQueryHelper.queryInventoryMastersTable("item_sku", "", "", " limit 10");
+			if(dbResponse.length == 0)	{
+				bw.write(boilerPlate + "Item_Sku does not exist.\n");
+				bw.close();
+				return false;
+			}
+//			dbResponse = DBQueryHelper.querySizesTable("meta_size_id", "", "", "LIMIT 10");
+//			if(dbResponse.length == 0)	{
+//				bw.write(boilerPlate + "Meta_Size_Id does not exist.\n");
+//				bw.close();
+//				return false;
+//			}
+//			bw.close();
+			orgUsable = true;
+			return true;
+		}
+		catch(Exception e){
+			System.out.println("Unable to get data from server.");
+			return false;
+		}		
+	}
+	
+	public void setLogger(Logger log){
+		try	{
+			File oldLog = new File(LOG_FILE_LOCATION);
+			oldLog.delete();
+			FileHandler fileHandler = new FileHandler(LOG_FILE_LOCATION);
+			log.addHandler(fileHandler);
+			SimpleFormatter sf = new SimpleFormatter();
+			fileHandler.setFormatter(sf);
+		}
+		catch(Exception e){
+			System.out.println("Issue with setting up logger. " + e);
+		}
+	}
+	
+	@BeforeClass(groups = {"smoke", "acceptance"})
+	public void beforeClass() throws Exception {
+		setLogger(log);
+		//If the abort file is set. Delete it.
+		File abortFile = new File(ABORT_FILE);
+		if(abortFile.isFile())	{
+			System.out.println("Abort file is present. Deleting it...");
+			isAborted = false;
+			abortFile.delete();
+		}
+		getOrg("");
+		/*
+		 * Do an org usability check to see if the org conforms to everything we require to run tests.
+		 */
+		while(!isOrgUsable() && getOrgCounter < 5)	{
+			getOrgCounter = getOrgCounter + 1;
+			afterSuite();
+			getOrg("");	
+		}
+		
+		if(!orgUsable){
+			afterSuite();
+			afterClass();
+		}
+		/*
+		 * Initializing the profiles
+		 */
+		profileNames.put("Loyalty Customers", "1");
+		profileNames.put("User Subscription", "17");
+		profileNames.put("Inventory", "8");
+		profileNames.put("Inventory Update for Line Items", "20");
+		profileNames.put("Coupon(Voucher) Redemption", "16");
+		profileNames.put("Concepts", "14");
+		profileNames.put("Store Tills", "13");
+		profileNames.put("Stores", "12");
+		profileNames.put("Store Server", "29");
+		profileNames.put("Zones", "15");
+		profileNames.put("Admin Users", "28");
+		profileNames.put("Bill Points Promotion(Accrual)", "22");
+		profileNames.put("Redeem Points", "23");
+		profileNames.put("Slabs", "24");
+		profileNames.put("Bill Promotion Expiry", "26");
+		profileNames.put("Customer Promotion Expiry", "25");
+		profileNames.put("Customer Promotion", "21");
+		profileNames.put("Bill Dump", "9");
+		profileNames.put("Transaction(Bill) Line Items", "5");
+		profileNames.put("Transactions(Bills)", "4");
+		profileNames.put("Transactions(Bills) - Not Interested", "18");
+		profileNames.put("Transactions(Bills) Line Items- Not Interested", "19");
+		profileNames.put("Transactions(Bills) - Return", "30");
+		profileNames.put("Update Transactions(Bills) Outlier Status", "11");
+		profileNames.put("Trackers", "32");
+		profileNames.put("Identifier cleanup", "33");
+		profileNames.put("LifetimePurchases Recalculation", "34");
+		profileNames.put("Update Transactions(Not interested Bills) Outlier Status", "35");
+		/*
+		 * Also, get the preferred language for tests.
+		 */
+		i18n = new i18nStringLibrary();
+//		i18nWordList = i18n.returnWordList(LANGUAGE);
+		String projectPath = System.getProperty("user.dir");
+		String chromeDriverPath = projectPath + "\\drivers\\chromedriver.exe";
+		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
+		log.info("========== launching browser =======");
+		
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--dns-prefetch-disable");
+		options.addArguments("--aggressive");
+		options.addArguments("test-type");
+		options.addArguments("start-maximized");
+		capabilities.setCapability("chrome.binary", "C:\\drivers\\chromedriver.exe");
+		
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		driver = new ChromeDriver(capabilities);
+		log.info("Setting the implicit wait to 20 seconds");
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		/*
+		 * Once the browser has been launched, create a new dir for storing test run artefacts.
+		 * This method here is mostly like a placeholder.
+		 */
+		Utils.createArtefactTargetDir("");
+		login();
+		selectOrg("", "");
+		log.info("This completes the before class method");
+	}
+	
+	
+	
+	
+	@AfterClass(groups = {"smoke", "acceptance"})
+	public void afterClass() {
+		if(driver != null)	{
+			log.info("========== closing browser =======");
+			driver.quit();
+		}
+		// Get the suite name 
+				String testName = Reporter.getCurrentTestResult().getTestClass().getRealClass().getSimpleName();	
+				File standardLog = new File(LOG_FILE_LOCATION);
+				// Create the log directory if it is not existing
+				File importLogPathFile = new File(importLogPath);
+				if(!importLogPathFile.exists())
+				{
+					importLogPathFile.mkdirs();
+				}
+		//Now copy the log file
+		File newLog = new File(importLogPath +"\\"+ testName + "_" + Utils.generateReadableDate("dd-MMM-YYYY_hh_mm_ss") + ".log");
+		try	{
+			Files.copy(standardLog, newLog);
+		}
+		catch(Exception e){
+			log.info("Unable to rename the log. " + e);
+		}
+	}
+	 
+	public void login() {
+		log.info("login to " + TEST_URL);
+		driver.get(TEST_URL); 
+		enterInput(By.id("login_user"), USER_ID);
+		enterInput(By.id("login_cred"), PASSWORD);
+		click(By.id("c-login-btn"));
+		//It was seen that if login wasn't successful, the test would be stuck in an infinite loop since the assert wasn't helping 
+		//the test quit. Here we are closing the browser to allow for the test to skip and allow for normal execution.
+		//Also, login retry has been removed.
+//		sleep(5000);
+		if(!driver.getPageSource().contains("Hi"))	{
+//			driver.quit();
+		}
+		assertForPageContains("Hi");
+	}
+	
+	public void login(String username, String password) {
+		log.info("login to " + TEST_URL);
+		driver.get(TEST_URL); 
+		enterInput(By.id("login__username"), username);
+		enterInput(By.id("login__password"), password);
+		click(By.id("c-login-btn"));
+		assertForPageContains("Hi");
+	}
+	
+	public void logout()	{
+		log.info("Logging out.");
+		click(By.id("user-log"));
+		assertForPageContains("Forgot Password?");
+	}
+	
+	public void selectOrg(String orgName, String orgId) {
+		if(orgName.length() == 0){
+			orgName = ORG_NAME;
+			orgId = ORG_ID;
+		}
+		log.info("selecting org " + orgName);
+//		click(By.id("org_selection_dropdown"));
+		try
+		{
+			click(ImportObjects.orgSelectionDropDown);
+		}catch(NoSuchElementException e)
+		{
+			Actions action =new Actions(driver);
+			action.keyDown(Keys.CONTROL).sendKeys(Keys.F5).build().perform();
+			click(ImportObjects.orgSelectionDropDown);
+		}
+		enterInput(ImportObjects.searchOrgTextBox, orgName);
+		click(By.id(orgId));
+//		sleep(2000);
+//		assertForPageNotContainsWebElement(By.xpath("//span[@class='dropdown open']"));
+		String selectedOrgName = driver.findElement(ImportObjects.orgSelectionDropDown).getText().trim().toLowerCase();
+		assertTextOfWebElement(selectedOrgName, ORG_NAME.toLowerCase());
+		log.info("Successfully chosen org.");
+	}
+	
+	//This method ensures that at the start of every test case, the logged in page is loaded as expected.
+	protected static String org_Name = null;
+	public void setup() throws FileNotFoundException, IOException	{
+		Properties prop = new Properties();
+		prop.load(new FileInputStream("config.properties"));
+		
+		System.out.println(prop.getProperty("orgname"));
+		org_Name = prop.getProperty("orgname");
+		if(!(driver.findElement(ImportObjects.orgSelectionDropDown).getText().trim().toLowerCase().contains(ORG_NAME.toLowerCase())))	{
+			selectOrg("", "");
+		}
+		//Verifying that we have the dashboard open
+//		driver.findElement(ImportObjects.workBench).click();
+//		sleep(2000);
+//		Assert.assertEquals(driver.findElement(ImportObjects.workBenchHealthDashboard).getText().trim(), "Workbench Health Dashboard", "Health Dashboard Page Not Open");
+	}
+	
+	public boolean navigateToDataImportEntryUploadCSV(String filepath){
+//		click(ImportObjects.settingsCog);
+//		click(ImportObjects.masterDataManagement);
+//		click(ImportObjects.dataImport1);
+//		click(ImportObjects.dataImport2);
+		/*
+		 * Temporarily hitting the URL directly.
+		 */
+		driver.get(TEST_URL + "/org/masters/import/LoadCsv");
+		//This fills in the path of the filename which is to be uploaded as csv 
+		findElement(ImportObjects.loadCSVForm).sendKeys(filepath.trim());
+		click(ImportObjects.submit);
+		
+//		sleep(2000);
+		return driver.getCurrentUrl().contains("Template");
+	}
+	
+	public static void chooseFromDropDown(By dropDownId, String stringToChoose)	{
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				Select dropDownField = new Select(findElement(dropDownId));
+				dropDownField.selectByVisibleText(stringToChoose);
+				return;
+			}
+			catch(Exception e)	{
+				log.info("[chooseFromDropDown] Waiting for element [" + dropDownId.toString() + "] to show up..." + counter);
+				sleep(1000);
+				counter = counter + 1;
+			}
+		}
+	}
+	
+	public boolean setupImport(String profileName, String ExpectedTemplate)	{
+		boolean flag = false;
+		Select dropDownField = new Select(findElement(ImportObjects.chooseProfileDropDown));
+		dropDownField.selectByValue(profileNames.get(profileName));
+//		assertForPageContains(ExpectedTemplate);
+		sleep(3000);
+		if(!checkIfPageContains(ExpectedTemplate))	{
+			scrollToElementAndClick(ImportObjects.createNewTemplateCheckbox);
+			clearAndSendKeysToElement(ImportObjects.enterNewTemplateNameText, ExpectedTemplate);
+			flag = true;
+		}
+		if(!flag){
+		//Waiting for appropriate template to load. Verifying that the template is what we need. If not, we go ahead and change it to the template we want.
+			String chosenTemplate = getElementText(ImportObjects.chooseTemplateDropDown);
+			if(chosenTemplate != ExpectedTemplate)	{
+				chooseFromDropDown(ImportObjects.chooseTemplateDropDown, ExpectedTemplate);
+			}	
+		}
+		findElementandClick();
+		if(checkIfPageContains("Configure Template"))
+			return true;
+		return false;
+	}
+	
+	/**
+	 * @param Profile
+	 */
+	public String createTemplateAndSetupImport(String profileName){
+		Random n = new Random();
+		String TemplateToCreate = "Test_Template_" + n.nextInt(10000);
+		Select dropDownField = new Select(findElement(ImportObjects.chooseProfileDropDown));
+		dropDownField.selectByValue(profileNames.get(profileName));
+		sleep(3000);
+		//Waiting for appropriate template to load. Verifying that the template is what we need. If not, we go ahead and change it to the template we want.
+//		scrollToElementAndClick(ImportObjects.createNewTemplateCheckbox);
+		checkCheckBox(ImportObjects.createNewTemplateCheckbox);
+		clearAndSendKeysToElement(ImportObjects.enterNewTemplateNameText, TemplateToCreate);
+		findElementandClick();;
+		if(checkIfPageContains("Configure Template"))
+				return TemplateToCreate;
+		return null;
+	}
+	
+	
+	
+	
+	public void configureTemplateInventoryLineItem(
+			boolean updateExistingItemCode)	{
+		if(isElementSelected(ImportObjects.updateExistingItemCode) ^ updateExistingItemCode)
+			scrollToElementAndClick(ImportObjects.updateExistingItemCode);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateBillDump(
+			boolean denoteStoresByExternalIds,
+			String replaceInvalidStoreNamesWith)	{
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExternalIds)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(findElement(ImportObjects.replaceInvalidStoreNamesWith).getText() != replaceInvalidStoreNamesWith)	{
+			Select option = new Select(findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			option.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);		
+	}
+	
+	public void configureTemplateSlab(
+			boolean denoteStoresByExtIds,
+			String replaceInvalidStoreNamesWith,
+			boolean appendCountryCode,
+			String customerUniqueIdentification,
+			boolean doNotDowngradeSlab)	{
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExtIds)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(findElement(ImportObjects.replaceInvalidStoreNamesWith).getText() != replaceInvalidStoreNamesWith)	{
+			Select option = new Select(findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			option.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCode)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(customerUniqueIdentification != null)	{
+			Select customerUniqueIdentificationDropDown = new Select(driver.findElement(ImportObjects.customerUniqueIdentifier));
+			customerUniqueIdentificationDropDown.selectByVisibleText(customerUniqueIdentification);
+		}
+		if(isElementSelected(ImportObjects.doNotDowngradeUserSlab) ^ doNotDowngradeSlab)
+			scrollToElementAndClick(ImportObjects.doNotDowngradeUserSlab);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateBillPromotionExpiry(
+			boolean denoteStoresByExternalId,
+			String replaceInvalidStoreNamesWith,
+			boolean appendCountryCode,
+			String identificationOfBill,
+			String customersUniqueIdentifier,
+			String promotionName,
+			String deductPointsBecause)	{
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExternalId)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(findElement(ImportObjects.replaceInvalidStoreNamesWith).getText() != replaceInvalidStoreNamesWith)	{
+			Select option = new Select(findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			option.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCode)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(identificationOfBill != null){
+			Select identificationOfBillDropDown = new Select(findElement(ImportObjects.identificationOfBill));
+			identificationOfBillDropDown.selectByVisibleText(identificationOfBill);
+		}
+		if(customersUniqueIdentifier != null)	{
+			Select customerUniqueIdentificationDropDown = new Select(driver.findElement(ImportObjects.customerUniqueIdentifier));
+			customerUniqueIdentificationDropDown.selectByVisibleText(customersUniqueIdentifier);
+		}
+		if(promotionName != null)	{
+			log.info("Entering the following promotion name - " + promotionName);
+			Select promotionIDDropDown = new Select(driver.findElement(ImportObjects.promotionID));
+			promotionIDDropDown.selectByVisibleText(promotionName);
+		}
+		if(deductPointsBecause != null)
+			clearAndSendKeysToElement(ImportObjects.reason, deductPointsBecause);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);	
+	}
+	
+	public void configureTemplateInventory(
+			boolean disableExistingDataUpdation,
+			boolean createBrandIfProvidedBrandCodeDoesNotExist,
+			boolean createCategoryIfProvidedCategoryCodeDoesNotExist,
+			boolean createStyleIfProvidedStyleCodeDoesNotExist, 
+			String inventoryFieldsToBeIgnoredIfInvalid,
+			String inventoryFieldsToBeUpdated)	{
+		if(isElementSelected(ImportObjects.disableExistingDataUpdation) ^ disableExistingDataUpdation)
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdation);
+		if(isElementSelected(ImportObjects.createBrandIfProvidedBrandCodeDoesNotExist) ^ createBrandIfProvidedBrandCodeDoesNotExist)
+			scrollToElementAndClick(ImportObjects.createBrandIfProvidedBrandCodeDoesNotExist);
+		//Adding this here merely as a hack since the test fails on some OS/Browsers (Windows Server)
+//		action.moveToElement(driver.findElement(ImportObjects.createCategoryIfProvidedCategoryCodeDoesNotExist));
+		scrollToElementAndClick(ImportObjects.createCategoryIfProvidedCategoryCodeDoesNotExist);
+		if(isElementSelected(ImportObjects.createCategoryIfProvidedCategoryCodeDoesNotExist) ^ createCategoryIfProvidedCategoryCodeDoesNotExist)
+			scrollToElementAndClick(ImportObjects.createCategoryIfProvidedCategoryCodeDoesNotExist);
+		scrollToElementAndClick(ImportObjects.createStyleIfProvidedStyleCodeDoesNotExist);
+		if(isElementSelected(ImportObjects.createStyleIfProvidedStyleCodeDoesNotExist) ^ createStyleIfProvidedStyleCodeDoesNotExist)
+			scrollToElementAndClick(ImportObjects.createStyleIfProvidedStyleCodeDoesNotExist);
+		if(inventoryFieldsToBeIgnoredIfInvalid != null){
+			handleAddRemoveBlocks(true, ImportObjects.inventoryFieldsIgnoreLeft, ImportObjects.inventoryFieldsIgnoreRight, ImportObjects.inventoryFieldsIgnoreAdd, inventoryFieldsToBeIgnoredIfInvalid);
+		}
+		if(inventoryFieldsToBeUpdated != null){
+			handleAddRemoveBlocks(true, ImportObjects.inventoryFieldsSubscribe, ImportObjects.inventoryFieldsUnsubscribe, ImportObjects.addInventoryField, inventoryFieldsToBeUpdated);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public static String returnUnicode(String data)	{
+		String returnString = StringEscapeUtils.escapeJava(data);
+		return returnString;
+	}
+	
+	public boolean navigateToInventoryAttributesPage() 	{
+		driver.get(TEST_URL + "/administration/inventoryaddattribute");
+		if(checkIfPageContains("Attributes"))
+			return true;
+		return false;
+	}
+	
+	public static boolean createCustomField(String profile, String customFieldName)	{
+		/*
+		 * Profiles used in automation are -
+		 * loyalty_transaction
+		 * zone_custom_fields
+		 * store_custom_fields 
+		 */
+		driver.get(TEST_URL + "/org/masters/configurations/customFields/View");
+		if(!driver.findElement(iO.customFieldAddNew).isDisplayed()) 
+			return false;
+		scrollToElementAndClick(iO.customFieldAddNew);
+		chooseFromDropDown(iO.customFieldDataType, "String");
+		chooseFromDropDown(iO.customFieldProfile, profile);
+		if(customFieldName == null)	{
+			clearAndSendKeysToElement(iO.customFieldName, profile);
+			clearAndSendKeysToElement(iO.customFieldLabel, "Custom Field");
+		}
+		else	{
+			clearAndSendKeysToElement(iO.customFieldName, customFieldName.replaceAll(" ", "_").toLowerCase());
+			clearAndSendKeysToElement(iO.customFieldLabel, customFieldName);
+		}
+		scrollToElementAndClick(iO.customFieldSubmit);
+		sleep(2000);
+		if(getElementText(ImportObjects.flashMessage).contains("Updated Successfully!!!"))
+			return true;
+		return false;
+	}
+
+	
+	/**
+	 * @param DenoteStoresByExtIds
+	 * @param ReplaceInvalidStoreNamesWith
+	 * @param DefaultBillOutlierStatus
+	 */
+	public void configureTemplateTransactionBillsLineItems(
+			boolean DenoteStoresByExtIds,
+			String ReplaceInvalidStoreNamesWith, 
+			String DefaultBillOutlierStatus
+			)	{
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ DenoteStoresByExtIds)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(findElement(ImportObjects.replaceInvalidStoreNamesWith).getText() != ReplaceInvalidStoreNamesWith)	{
+			Select option = new Select(findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			option.selectByVisibleText(ReplaceInvalidStoreNamesWith);
+		}
+		if(findElement(ImportObjects.defaultBillOutlierStatus).getText() != DefaultBillOutlierStatus )	{
+			Select option = new Select(findElement(ImportObjects.defaultBillOutlierStatus));
+			option.selectByVisibleText(DefaultBillOutlierStatus);
+		}	
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateTransactionBillsLineItemsNotInterested(String defaultLineItemOutlierStatus,
+			boolean allowAddingLineItemsToExistingTransactions,
+			String defaultBillOutlierStatus,
+			boolean updateTheBillAmountIfAlreadyExists,
+			boolean denoteStoresByExternalIds,
+			String replaceInvalidStoreNamesWith)	{
+		if(defaultLineItemOutlierStatus != "")	{
+			Select defaultLineItemOutlierStatusDropDown = new Select(driver.findElement(ImportObjects.defaultLineItemOutlierStatus));
+			defaultLineItemOutlierStatusDropDown.selectByVisibleText(defaultLineItemOutlierStatus);
+		}
+		if(isElementSelected(ImportObjects.allowAddingLineItemsToExistingTransactions) ^ allowAddingLineItemsToExistingTransactions)
+			scrollToElementAndClick(ImportObjects.allowAddingLineItemsToExistingTransactions);
+		if(defaultBillOutlierStatus != "")	{
+			Select defaultBillOutlierStatusDropDown = new Select(driver.findElement(ImportObjects.defaultBillOutlierStatus));
+			defaultBillOutlierStatusDropDown.selectByVisibleText(defaultBillOutlierStatus);
+		}
+		if(isElementSelected(ImportObjects.updateBillAmountIfAlreadyExists) ^ updateTheBillAmountIfAlreadyExists)
+			scrollToElementAndClick(ImportObjects.updateBillAmountIfAlreadyExists);
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExternalIds)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);	
+	}
+	
+	/**
+	 * @param customerUniqueIdentification
+	 * @param appendCountryCode
+	 * @param denoteStoresByExternalId
+	 * @param replaceInvlidStoreNamesWith
+	 * @param promotionName
+	 */
+	public void configureTemplateCustomerPromotion(
+			String customerUniqueIdentification,
+			boolean appendCountryCode,
+			boolean denoteStoresByExternalId,
+			String replaceInvalidStoreNamesWith,
+			String promotionName)	{
+		if(customerUniqueIdentification != null)	{
+			Select customerUniqueIdentificationDropDown = new Select(driver.findElement(ImportObjects.customerUniqueIdentifier));
+			customerUniqueIdentificationDropDown.selectByVisibleText(customerUniqueIdentification);
+		}
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCode)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExternalId)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(replaceInvalidStoreNamesWith != null)	{
+			Select replaceInvalidStoreNamesWithDropDown = new Select(driver.findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			replaceInvalidStoreNamesWithDropDown.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		if(promotionName != null)
+			clearAndSendKeysToElement(ImportObjects.promotionName, promotionName);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);	
+	}
+	
+	public void configureTemplateCustomerPromotionExpiry(
+			boolean denoteStoresByExternalId,
+			String replaceInvalidStoreNamesWith,
+			boolean appendCountryCode,
+			String customerUniqueIdentification,
+			String promotionName)	{
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExternalId)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(replaceInvalidStoreNamesWith != null)	{
+			Select replaceInvalidStoreNamesWithDropDown = new Select(driver.findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			replaceInvalidStoreNamesWithDropDown.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCode)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(customerUniqueIdentification != null)	{
+			Select customerUniqueIdentificationDropDown = new Select(driver.findElement(ImportObjects.customerUniqueIdentifier));
+			customerUniqueIdentificationDropDown.selectByVisibleText(customerUniqueIdentification);
+		}
+		if(promotionName != null)	{
+			Select promotionNameDropDown = new Select(driver.findElement(ImportObjects.promotionNameChoose));
+			promotionNameDropDown.selectByVisibleText(promotionName);
+		}	
+		clearAndSendKeysToElement(ImportObjects.reason, "invalid");
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	/**
+	 * @param denoteStoresByExternalId
+	 * @param replaceInvalidStoreNamesWith
+	 * @param appendCountryCode
+	 * @param identificationOfBill
+	 * @param customersUniqueIdentification
+	 * @param doNotAddPointsAlreadyProvided
+	 * @param expiryStrategy
+	 * @param promotionName
+	 */
+	public void configureTemplateBillPromotion(
+			boolean denoteStoresByExternalId,
+			String replaceInvalidStoreNamesWith,
+			boolean appendCountryCode,
+			String identificationOfBill,
+			String customersUniqueIdentification,
+			boolean doNotAddPointsAlreadyProvided,
+			String expiryStrategy,
+			String promotionName)	{
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExternalId)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(replaceInvalidStoreNamesWith != null)	{
+			Select replaceInvalidStoreNamesWithDropDown = new Select(findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			replaceInvalidStoreNamesWithDropDown.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCode)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(identificationOfBill != null){
+			Select identificationOfBillDropDown = new Select(findElement(ImportObjects.identificationOfBill));
+			identificationOfBillDropDown.selectByVisibleText(identificationOfBill);
+		}
+		if(customersUniqueIdentification != null)	{
+			Select customersUniqueIdentificationDropDown = new Select(findElement(ImportObjects.customerUniqueIdentifier));
+			customersUniqueIdentificationDropDown.selectByVisibleText(customersUniqueIdentification);
+		}
+		if(isElementSelected(ImportObjects.disableExistingDataUpdation) ^ doNotAddPointsAlreadyProvided)
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdation);
+		if(expiryStrategy != null)	{
+			Select expiryStrategyDropDown = new Select(findElement(ImportObjects.expiryStrategy));
+			expiryStrategyDropDown.selectByVisibleText(expiryStrategy);
+		}
+		if(promotionName != null)	{
+			clearAndSendKeysToElement(ImportObjects.promotionName, promotionName);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateRedeemPoints(
+			boolean denoteStoresByExternalIds,
+			String replaceInvalidStoreNamesWith, 
+			boolean appendCountryCode, 
+			String customersUniqueIdentification)	{
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExternalIds)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);		
+		if(replaceInvalidStoreNamesWith != null)	{
+			Select replaceInvalidStoreNamesWithDropDown = new Select(driver.findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			replaceInvalidStoreNamesWithDropDown.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCode)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(customersUniqueIdentification != null)	{
+			Select customersUniqueIdentificationDropDown = new Select(findElement(ImportObjects.customerUniqueIdentifier));
+			customersUniqueIdentificationDropDown.selectByVisibleText(customersUniqueIdentification);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public boolean createAttributeIfNotExists(String attributeName){
+		if(navigateToInventoryAttributesPage())	{
+			if(!checkIfPageContains(attributeName))	{
+				clearAndSendKeysToElement(ImportObjects.addAttributeName, attributeName);
+				scrollToElementAndClick(ImportObjects.addAttributeSubmit);
+				clearAndSendKeysToElement(ImportObjects.customizeAttributeName, attributeName);
+				scrollToElementAndClick(ImportObjects.customizeAttributeSubit);
+				if(getElementText(ImportObjects.flashMessage).contains("Adding Success"))	{
+					scrollToElementAndClick(ImportObjects.workbenchLink);
+					return true;
+				}
+				return false;
+			}
+			log.info("Page already contains attribute");
+			scrollToElementAndClick(ImportObjects.workbenchLink);
+			return true;
+		}
+		return false;
+	}
+	
+	public String createStoreServer(String storeName) throws Exception{
+		Utils.navigateToSearchStoreServers();
+		scrollToElementAndClick(ImportObjects.addNewStoreServerButton);
+		Select storeNameDropDown = new Select(driver.findElement(ImportObjects.addStoreServerStoreId));
+		storeNameDropDown.selectByVisibleText(storeName);
+		String storeServerUserName = Utils.generateRandomAlphaNumericString(8);
+		clearAndSendKeysToElement(ImportObjects.addStoreServerUsername, storeServerUserName);
+		clearAndSendKeysToElement(ImportObjects.addStoreServerPassword, "123");
+		clearAndSendKeysToElement(ImportObjects.confirmStoreServerPassword, "123");
+		scrollToElementAndClick(ImportObjects.submitStoreServerEntry);
+		return storeServerUserName;
+	}
+	
+	public void configureTemplateConcepts(
+			boolean disableExistingDataUpdation,
+			String conceptProperties)	{
+		if(isElementSelected(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox) ^ disableExistingDataUpdation)
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox);
+		if(conceptProperties != null){
+			handleAddRemoveBlocks(true, ImportObjects.conceptPropertiesSubscribe, ImportObjects.conceptPropertiesUnsubscribe, 
+					ImportObjects.addConceptProperties, conceptProperties);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateAdminUsers(
+				String adminUsersUpdateFields, 
+				boolean disableDataUpdation,
+				boolean disableExistingAccessibleEntities,
+				boolean appendCountryCode
+			)	{
+		if(adminUsersUpdateFields.length() != 0)	
+			handleAddRemoveBlocks(true, ImportObjects.adminUsersPropertiesSubscribe, ImportObjects.adminUsersPropertiesUnsubscribe,
+					ImportObjects.adminUsersAdd, adminUsersUpdateFields);
+		if(isElementSelected(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox) ^ disableDataUpdation)
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox);
+		if(isElementSelected(ImportObjects.overrideExistingAccessibleEntities) ^ disableExistingAccessibleEntities)
+			scrollToElementAndClick(ImportObjects.overrideExistingAccessibleEntities);
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCode)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateStoreServer(
+			String fieldsToBeUpdated,
+			boolean disableExistingDataUpdation, 
+			String replaceInvalidStoreNamesWith)	{
+		if(fieldsToBeUpdated.length() != 0)	
+			handleAddRemoveBlocks(true, ImportObjects.storeServerPropertiesSubscribe, ImportObjects.storeServerPropertiesUnsubscribe,
+					ImportObjects.addStoreServerProperties, fieldsToBeUpdated);
+		if(isElementSelected(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox) ^ disableExistingDataUpdation)
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox);
+		if(replaceInvalidStoreNamesWith.length() != 0)	{
+			Select replaceInvalidStoreNameDropDown = new Select(findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			replaceInvalidStoreNameDropDown.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateStores(
+			boolean disableExistingDataUpdation,
+			boolean disableUpdationOfCustomFieldsWithEmptyValues, 
+			String storeProperties, 
+			String replaceInvalidZoneCodeWith,
+			String replaceInvalidConceptCodeWith)	{
+		if(isElementSelected(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox) ^ disableExistingDataUpdation)
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox);
+		if(isElementSelected(ImportObjects.disableUpdationOfCustomFieldsWithEmptyValues) ^ disableUpdationOfCustomFieldsWithEmptyValues)
+			scrollToElementAndClick(ImportObjects.disableUpdationOfCustomFieldsWithEmptyValues);
+		if(storeProperties != null){
+			handleAddRemoveBlocks(true, ImportObjects.storePropertiesSubscribe, ImportObjects.storePropertiesUnsubscribe, 
+					ImportObjects.addStoreProperties, storeProperties);
+//			Select storePropertiesDropDown = new Select(findElement(ImportObjects.storePropertiesSubscribe));
+//			String[] storePropertiesArray = storeProperties.split(",");
+//			for(int i = 0; i < storePropertiesArray.length; i++){
+//				storePropertiesDropDown.selectByVisibleText(storePropertiesArray[i].trim().toLowerCase());
+//				click(ImportObjects.addStoreProperties);
+		}
+		if(replaceInvalidZoneCodeWith != null){
+			Select replaceInvalidZoneDropDown = new Select(findElement(ImportObjects.replaceInvalidZoneCode));
+			replaceInvalidZoneDropDown.selectByVisibleText(replaceInvalidZoneCodeWith);
+		}
+		if(replaceInvalidConceptCodeWith != null){
+			Select replaceInvalidConceptDropDown = new Select(findElement(ImportObjects.replaceInvalidConceptCode));
+			replaceInvalidConceptDropDown.selectByVisibleText(replaceInvalidConceptCodeWith);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateStoreTills(
+			boolean disableExistingDataUpdation,
+			String storeTillProperties,
+			String replaceInvalidStoreNamesWith)	{
+		if(isElementSelected(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox) ^ disableExistingDataUpdation)
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox);
+		if(storeTillProperties != null){
+			handleAddRemoveBlocks(true, ImportObjects.storeTillPropertiesSubscribe, ImportObjects.storeTillPropertiesUnsubscribe, 
+					ImportObjects.addStoreTillProperties, storeTillProperties);
+			}
+		if(replaceInvalidStoreNamesWith != null){
+			Select replaceInvalidStoreNamesWithDropDown = new Select(driver.findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			replaceInvalidStoreNamesWithDropDown.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateZones(
+			boolean disableExistingDataUpdation,
+			String zoneProperties)	{
+		if(isElementSelected(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox) ^ disableExistingDataUpdation)
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdationForOrgEntitiesCheckBox);
+		if(zoneProperties != null){
+			handleAddRemoveBlocks(true, ImportObjects.zonePropertiesSubscribe, ImportObjects.zonePropertiesUnsubscribe, 
+					ImportObjects.addZoneProperties, zoneProperties);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateUserSubscription(
+			String userInputType, 
+			String defaultChannelsToSubscribe,
+			String defaultSubscriptionScope,
+			String defaultSubscriptionPriority,
+			String defaultSubscriptionStatus,
+			boolean appendCountryCode,
+			boolean denoteStoresByExternalIds, 
+			String replaceInvalidStoreNamesWith
+			)	{
+		if(userInputType != null)	{
+			Select userInputTypeDropDown = new Select(findElement(ImportObjects.userType));
+			userInputTypeDropDown.selectByVisibleText(userInputType);
+		}
+		//Channels to subscribe
+		if(defaultChannelsToSubscribe != null)	{
+			Select channelsDropDown = new Select(findElement(ImportObjects.channels));
+			channelsDropDown.selectByVisibleText(defaultChannelsToSubscribe);
+		}
+		//Scopes
+		if(defaultSubscriptionScope != null){
+			Select scopeDropDown = new Select(findElement(ImportObjects.subscriptionScopes));
+			scopeDropDown.selectByVisibleText(defaultSubscriptionScope);
+		}
+		//Subscription Priority
+		if(defaultSubscriptionPriority != null){
+			Select priorityDropDown = new Select(findElement(ImportObjects.subscriptionPriority));
+			priorityDropDown.selectByVisibleText(defaultSubscriptionPriority);
+		}
+		//Subscription Status
+		if(defaultSubscriptionStatus != null){
+			Select subscriptionStatusDropDown = new Select(findElement(ImportObjects.subscriptionStatus));
+			subscriptionStatusDropDown.selectByVisibleText(defaultSubscriptionStatus);
+		}
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCode)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(replaceInvalidStoreNamesWith != null){
+			Select replaceInvalidStoreNamesWithDropDown = new Select(findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			replaceInvalidStoreNamesWithDropDown.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void addToList(By leftColumn, By addButton, String list){
+		Select itemsInLeftColumn = new Select(findElement(leftColumn));
+		List<WebElement> items = itemsInLeftColumn.getOptions();
+		String[] splitList = list.split(",");
+		for(int i = 0 ; i < splitList.length; i++)	{
+			System.out.println("Checking for element - " + splitList[i]);
+			for(WebElement item : items)	{
+				System.out.println("Element obtained - " + item.getText());
+				if(item.getText().contains(splitList[i].trim()))	{
+					itemsInLeftColumn.selectByVisibleText(splitList[i].trim());
+					click(addButton);
+					break;
+				}
+			}
+		}	
+	}
+	
+	public boolean checkIfItemExistsInList(By column, String itemName){
+		/** Setting driver time out to 2 seconds since there is a check on element presence */
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+		Select itemsInColumn = new Select(findElement(column));
+		List<WebElement> items = itemsInColumn.getOptions();
+		for(WebElement item : items){
+			
+			if(item.getText().contains(itemName))
+				return true;
+		}
+		/** Resetting the time out to 20 seconds */
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		return false;
+	}
+	
+	public void removeFromList(By rightColumn, By removeButton, String list){
+		Select itemsInRightColumn = new Select(findElement(rightColumn));
+		List<WebElement> items = itemsInRightColumn.getOptions();
+		String[] splitList = list.split(",");
+		for(int i = 0 ; i < splitList.length; i++)	{
+			
+			for(WebElement item : items)	{
+				
+				if(item.getText().contains(splitList[i]))	{
+					itemsInRightColumn.selectByVisibleText(splitList[i]);
+					click(removeButton);
+					break;
+				}
+			}
+		}
+	}
+	
+	public boolean handleAddRemoveBlocks(boolean add, By leftColumn, By rightColumn, By button, String list)	{
+		//If add is set to true, it means that the add operation is requested.
+		List<String> newList = new ArrayList<String>();
+		if(list.length() != 0){
+			if(add)	{
+				//First check if the list or part of it is already contained in the right column (added column). Based on that create a new list.
+				String[] splitList = list.split(",");			
+				for(int i = 0 ; i < splitList.length; i++)
+					if(!checkIfItemExistsInList(rightColumn, splitList[i].trim()))
+						newList.add(splitList[i].trim());
+				//Now it is this new list that needs to be added to the right.
+				//Convert the list into a string
+				String cleanList = Utils.convertFromListToString(newList, ",");
+				if(cleanList.length() != 0)
+					addToList(leftColumn, button, cleanList);
+				return true;
+			}
+			else	{
+				//First check if the list or part of it is already contained in the right column (added column). Based on that create a new list.
+				String[] splitList = list.split(",");			
+				for(int i = 0 ; i < splitList.length; i++)
+					if(!checkIfItemExistsInList(leftColumn, splitList[i]))
+						newList.add(splitList[i]);
+				//Now it is this new list that needs to be added to the right.
+				//Convert the list into a string
+				String cleanList = Utils.convertFromListToString(newList, ",");
+				if(cleanList.length() != 0)
+					addToList(rightColumn, button, cleanList);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void configureTemplateTransactionBills(
+			boolean RegisterNewCustomersAutomatically,
+			boolean DisableEmailValidation,
+			boolean DisableMobValidation,
+			String ReplaceInvalidStoreNamesWith, 
+			boolean DenoteStoresByExtIds,
+			boolean AppendCountryCodeToMobileNumber,
+			String EmailNotifications, 
+			String CustUniqueIdentifier)	{
+		if((findElement(ImportObjects.registerNewCustomersAutomatically).isSelected() ^ RegisterNewCustomersAutomatically))
+			findTheElementandPerform(ImportObjects.registerNewCustomersAutomatically);
+		if((findElement(ImportObjects.disableMobileNumberValidationCheckBox).isSelected() ^ DisableMobValidation))
+			findTheElementandPerform(ImportObjects.disableMobileNumberValidationCheckBox);
+		//Adding this here merely as a hack since the test fails on some OS/Browsers (Windows Server)
+		scrollToElementAndClick(ImportObjects.disableEmailIdValidationCheckBox);
+		if((findElement(ImportObjects.disableEmailIdValidationCheckBox).isSelected() ^ DisableEmailValidation))
+			findTheElementandPerform(ImportObjects.disableEmailIdValidationCheckBox);
+		if(!(ReplaceInvalidStoreNamesWith == null))	
+			driver.findElement(ImportObjects.replaceInvalidStoreNamesWith).sendKeys(ReplaceInvalidStoreNamesWith);
+		if((findElement(ImportObjects.denoteStoresByExternalIds).isSelected() ^ DenoteStoresByExtIds))
+			findTheElementandPerform(ImportObjects.denoteStoresByExternalIds);
+		if((findElement(ImportObjects.appendCountryCodeCheckBox).isSelected() ^ AppendCountryCodeToMobileNumber))
+			findTheElementandPerform(ImportObjects.appendCountryCodeCheckBox);
+//			click(objects.AppendCountryCodeCheckBox);
+		if(!(EmailNotifications == null))	
+			driver.findElement(ImportObjects.emailNotificationText).sendKeys(EmailNotifications);
+		if(findElement(ImportObjects.customerUniqueIdentifier).getText() != CustUniqueIdentifier )	{
+			Select option = new Select(findElement(ImportObjects.customerUniqueIdentifier));
+			option.selectByVisibleText(CustUniqueIdentifier);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateUpdateTransactionsOutlierStatus(String identifierForUpdatingTransactions, 
+			String replaceInvalidOutlierStatusWith)	{
+		chooseFromDropDown(ImportObjects.identifierForUpdatingTransactions, identifierForUpdatingTransactions);
+		chooseFromDropDown(ImportObjects.replaceInvalidOutlierStatusWith, replaceInvalidOutlierStatusWith);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateReturnTransactions(
+			boolean allowReturningNonExistingTransactions,
+			boolean allowUpdatingDuplicateReturnTransactions,
+			boolean allowImportWithoutParentTransaction,
+			boolean disableMobileNumberValidation,
+			boolean disableEmailIdValidation,
+			String replaceInvalidStoreNamesWith,
+			boolean denoteStoresByExternalId,
+			boolean appendCountryCodeAutomatically,
+			String enterEmailIdsForNotifications,
+			String userInputType
+			)	{
+		if((findElement(ImportObjects.allowReturningNonExistingTransactions).isSelected() ^ allowReturningNonExistingTransactions))
+			scrollToElementAndClick(ImportObjects.allowReturningNonExistingTransactions);
+		if((findElement(ImportObjects.allowUpdatingDuplicateReturnTransactions).isSelected() ^ allowUpdatingDuplicateReturnTransactions))
+			scrollToElementAndClick(ImportObjects.allowUpdatingDuplicateReturnTransactions);
+		if((findElement(ImportObjects.allowImportWithoutParentTransaction).isSelected() ^ allowImportWithoutParentTransaction))
+			scrollToElementAndClick(ImportObjects.allowImportWithoutParentTransaction);
+		if((findElement(ImportObjects.disableMobileNumberValidationCheckBox).isSelected() ^ disableMobileNumberValidation))
+			scrollToElementAndClick(ImportObjects.disableMobileNumberValidationCheckBox);
+		//Adding this here merely as a hack since the test fails on some OS/Browsers (Windows Server)
+				scrollToElementAndClick(ImportObjects.disableEmailIdValidationCheckBox);
+		if((findElement(ImportObjects.disableEmailIdValidationCheckBox).isSelected() ^ disableEmailIdValidation))
+			scrollToElementAndClick(ImportObjects.disableEmailIdValidationCheckBox);
+		if(replaceInvalidStoreNamesWith != null )	{
+			Select option = new Select(findElement(ImportObjects.replaceInvalidStoreNamesWith));
+			option.selectByVisibleText(replaceInvalidStoreNamesWith);
+		}		
+		if((findElement(ImportObjects.denoteStoresByExternalIds).isSelected() ^ denoteStoresByExternalId))
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if((findElement(ImportObjects.appendCountryCodeCheckBox).isSelected() ^ appendCountryCodeAutomatically))
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(enterEmailIdsForNotifications != null)
+			driver.findElement(ImportObjects.emailNotificationText).sendKeys(enterEmailIdsForNotifications);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	//configureTemplate(false, null, true, false, false, null, false, null);
+	public void configureTemplateLoyaltyCustomerRegistration(boolean DisableExistingDataUpdation, 
+			boolean disableUpdationOfCustomFieldsWithEmptyValues,
+			String replaceDataList,
+			String ReplaceInvalidStoreNamesWith, 
+			boolean AppendCountryCode, 
+			boolean DisableMobValidation, 
+			boolean DisableEmailValidation, 
+			String EmailNotifications, 
+			boolean DenoteStoresByExtIds, 
+			String CustUniqueIdentifier)	
+	{
+		//Checking for disabling existing data updation
+		if((findElement(ImportObjects.disableExistingDataUpdationCheckBox1).isSelected() ^ DisableExistingDataUpdation))
+//			scrollToElementAndClick(ImportObjects.disableExistingDataUpdationCheckBox1);
+			checkCheckBox(ImportObjects.disableExistingDataUpdationCheckBox1);
+		//Adding this here merely as a hack since the test fails on some OS/Browsers (Windows Server)
+//		scrollToElementAndClick(ImportObjects.disableUpdationOfCustomFieldsWithEmptyValues);
+//		checkCheckBox(ImportObjects.disableUpdationOfCustomFieldsWithEmptyValues);
+		if((findElement(ImportObjects.disableUpdationOfCustomFieldsWithEmptyValues).isSelected() ^ disableUpdationOfCustomFieldsWithEmptyValues))
+//			scrollToElementAndClick(ImportObjects.disableUpdationOfCustomFieldsWithEmptyValues);
+			checkCheckBox(ImportObjects.disableUpdationOfCustomFieldsWithEmptyValues);
+		if(replaceDataList != null)
+			handleAddRemoveBlocks(true, ImportObjects.loyaltyCustomerUpdateFieldsLeftColumn, ImportObjects.loyaltyCustomerUpdateFieldsRightColumn, 
+					ImportObjects.loyaltyCustomerUpdateFieldsAdd, replaceDataList);
+		if(!(ReplaceInvalidStoreNamesWith == null))	
+			driver.findElement(ImportObjects.replaceInvalidStoreNamesWith).sendKeys(ReplaceInvalidStoreNamesWith);
+		if((findElement(ImportObjects.appendCountryCodeCheckBox).isSelected() ^ AppendCountryCode))
+//			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+			checkCheckBox(ImportObjects.appendCountryCodeCheckBox);
+		if((findElement(ImportObjects.disableMobileNumberValidationCheckBox).isSelected() ^ DisableMobValidation)){
+//			scrollToElementAndClick(ImportObjects.disableMobileNumberValidationCheckBox);
+			checkCheckBox(ImportObjects.disableMobileNumberValidationCheckBox);
+		}else{
+			uncheckCheckBox(ImportObjects.disableMobileNumberValidationCheckBox);
+			}
+		if((findElement(ImportObjects.disableEmailIdValidationCheckBox).isSelected() ^ DisableEmailValidation)){
+//			scrollToElementAndClick(ImportObjects.disableEmailIdValidationCheckBox);
+			checkCheckBox(ImportObjects.disableEmailIdValidationCheckBox);
+		}else
+		{
+			uncheckCheckBox(ImportObjects.disableEmailIdValidationCheckBox);
+		}
+		if(!(EmailNotifications == null))	
+			driver.findElement(ImportObjects.emailNotificationText).sendKeys(EmailNotifications);
+		if((findElement(ImportObjects.denoteStoresByExternalIds).isSelected() ^ DenoteStoresByExtIds))
+//			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+			uncheckCheckBox(ImportObjects.denoteStoresByExternalIds);
+		if(findElement(ImportObjects.customerUniqueIdentifier).getText() != CustUniqueIdentifier )	{
+			Select option = new Select(findElement(ImportObjects.customerUniqueIdentifier));
+			option.selectByVisibleText(CustUniqueIdentifier);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateIdentifierCleanup(String identifierType)	{
+		 
+		if(identifierType != null)
+		{
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			Select sel = new Select(driver.findElement(ImportObjects.addedIdentifierType));
+			List<WebElement> options = sel.getOptions();
+			if(sel.getOptions().size()>0)
+			{
+				for(int i=0;i<options.size();i++)
+				{
+					sel.selectByValue(options.get(i).getAttribute("value"));
+				}
+				click(ImportObjects.removeButton);
+			}
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+			chooseFromDropDown(ImportObjects.identifierType, identifierType);
+			click(ImportObjects.addButton);
+			scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+		}
+	}
+	
+	public void configureTemplateTrackers(boolean denoteStoresByExternalId, 
+			String replaceInvalidStoreNamesWith,
+			boolean appendCountryCodeAutomatically,
+			String identificationOfBill,
+			String customersUniqueIdentifier,
+			String tracker)	{
+		if(isElementSelected(ImportObjects.denoteStoresByExternalIds) ^ denoteStoresByExternalId)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(replaceInvalidStoreNamesWith != null)
+			chooseFromDropDown(ImportObjects.replaceInvalidStoreNamesWith, replaceInvalidStoreNamesWith);
+		if(isElementSelected(ImportObjects.appendCountryCodeCheckBox) ^ appendCountryCodeAutomatically)
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if(identificationOfBill != null)
+			chooseFromDropDown(ImportObjects.identificationOfBill, identificationOfBill);
+		if(customersUniqueIdentifier != null)
+			chooseFromDropDown(ImportObjects.customerUniqueIdentifier, customersUniqueIdentifier);
+		if(tracker != null)
+			chooseFromDropDown(ImportObjects.trackerDropDown, tracker);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void configureTemplateCouponRedemption(boolean disableExistingDataUpdation,
+			boolean denoteStoresByExternalIds,
+			boolean validateTransactionNumber,
+			String customerUniqueIdentification,
+			boolean doNotCheckRedemptionRange,
+			boolean appendCountryCode)	{
+		if((findElement(ImportObjects.disableExistingDataUpdationCheckBox2).isSelected() ^ disableExistingDataUpdation))
+			scrollToElementAndClick(ImportObjects.disableExistingDataUpdationCheckBox2);
+		if(driver.findElement(ImportObjects.denoteStoresByExternalIds).isSelected() ^ denoteStoresByExternalIds)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(driver.findElement(ImportObjects.validateTransactionNumber).isSelected() ^ validateTransactionNumber)
+			scrollToElementAndClick(ImportObjects.validateTransactionNumber);
+		if(findElement(ImportObjects.customerUniqueIdentifier).getText() != customerUniqueIdentification )	{
+			Select option = new Select(findElement(ImportObjects.customerUniqueIdentifier));
+			option.selectByVisibleText(customerUniqueIdentification);
+		}
+		if(driver.findElement(ImportObjects.doNotCheckRedemptionRange).isSelected() ^ doNotCheckRedemptionRange)
+			scrollToElementAndClick(ImportObjects.doNotCheckRedemptionRange);
+		if((findElement(ImportObjects.appendCountryCodeCheckBox).isSelected() ^ appendCountryCode))
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	
+	/**
+	 * @param DenoteStoresByExternalIds
+	 * @param ReplaceInvalidStoreNamesWith
+	 * @param RegisterNewCustomersAutomatically
+	 * @param AllowAddingLineItemsToExistingTransactions
+	 * @param UpdatePointsAndPurchasesForExistingTransactions
+	 * @param LineItemLevelPointsGiven
+	 * @param AppendCountryCode
+	 * @param DisableMobValidation
+	 * @param DisableEmailValidation
+	 * @param EmailNotifications
+	 * @param ChooseCustomerUniqueIdentifier
+	 */
+	public void configureTemplateTransactionBillsLineItems(boolean DenoteStoresByExternalIds,
+			String ReplaceInvalidStoreNamesWith,
+			boolean RegisterNewCustomersAutomatically,
+			boolean AllowAddingLineItemsToExistingTransactions,
+			boolean UpdatePointsAndPurchasesForExistingTransactions,
+			boolean LineItemLevelPointsGiven,
+			boolean AppendCountryCode,
+			boolean DisableMobValidation,
+			boolean DisableEmailValidation,
+			String EmailNotifications,
+			String ChooseCustomerUniqueIdentifier)	{
+		scrollToBottomOfPage();
+		if(driver.findElement(ImportObjects.denoteStoresByExternalIds).isSelected() ^ DenoteStoresByExternalIds)
+			scrollToElementAndClick(ImportObjects.denoteStoresByExternalIds);
+		if(!(ReplaceInvalidStoreNamesWith == null))	
+			driver.findElement(ImportObjects.replaceInvalidStoreNamesWith).sendKeys(ReplaceInvalidStoreNamesWith);
+		if((findElement(ImportObjects.registerNewCustomersAutomatically).isSelected() ^ RegisterNewCustomersAutomatically))
+			scrollToElementAndClick(ImportObjects.registerNewCustomersAutomatically);
+		if(driver.findElement(ImportObjects.allowAddingLineItemsToExistingTransactions).isSelected() ^ AllowAddingLineItemsToExistingTransactions)
+			scrollToElementAndClick(ImportObjects.allowAddingLineItemsToExistingTransactions);
+		if(driver.findElement(ImportObjects.updatePointsAndPurchasesForExistingTransactions).isSelected() ^ UpdatePointsAndPurchasesForExistingTransactions)
+			scrollToElementAndClick(ImportObjects.updatePointsAndPurchasesForExistingTransactions);
+		if(driver.findElement(ImportObjects.lineItemLevelPointsGiven).isSelected() ^ LineItemLevelPointsGiven)
+			scrollToElementAndClick(ImportObjects.lineItemLevelPointsGiven);
+		if((findElement(ImportObjects.appendCountryCodeCheckBox).isSelected() ^ AppendCountryCode))
+			scrollToElementAndClick(ImportObjects.appendCountryCodeCheckBox);
+		if((findElement(ImportObjects.disableMobileNumberValidationCheckBox).isSelected() ^ DisableMobValidation))
+			scrollToElementAndClick(ImportObjects.disableMobileNumberValidationCheckBox);
+		//Adding this here merely as a hack since the test fails on some OS/Browsers (Windows Server)
+		scrollToElementAndClick(ImportObjects.disableEmailIdValidationCheckBox);
+		if((findElement(ImportObjects.disableEmailIdValidationCheckBox).isSelected() ^ DisableEmailValidation))
+			scrollToElementAndClick(ImportObjects.disableEmailIdValidationCheckBox);
+		if(!(EmailNotifications == null))	
+			driver.findElement(ImportObjects.emailNotificationText).sendKeys(EmailNotifications);
+		if(findElement(ImportObjects.customerUniqueIdentifier).getText() != ChooseCustomerUniqueIdentifier )	{
+			Select option = new Select(findElement(ImportObjects.customerUniqueIdentifier));
+			option.selectByVisibleText(ChooseCustomerUniqueIdentifier);
+		}
+		scrollToElementAndClick(ImportObjects.submitButtonConfigTemplate);
+	}
+	
+	public void selectFieldMappings(String... FieldToIgnore){
+		ArrayList<String> fieldToIgnore = new  ArrayList<String>();
+		if(FieldToIgnore.length>0)
+		{
+			for(int i=0;i<FieldToIgnore.length;i++){
+				fieldToIgnore.add(FieldToIgnore[i]);
+	 			}
+			fieldToIgnore.toString();
+		}
+		//Getting the list of all fields that are present on the page in the order in which they arrive
+		List<String> MappingHeads = new ArrayList<>();
+		List<WebElement> trs = findElements(ImportObjects.configureFildMappingHeaders);
+		for(WebElement tr : trs)	{
+			String value = tr.getText();
+			//Ensuring that all unwanted values are removed.
+			
+			if(!(value.toLowerCase().contains("none") || value.contains("#")))
+				MappingHeads.add(value);
+		}
+		//Getting the ids of all the dropdown items and storing in a list.
+		List<WebElement> DropDowns = findElements(ImportObjects.configureFieldMappingDropDown);
+		List<String> DropDownIds = new ArrayList<>();
+		for(WebElement DropDown : DropDowns){
+			String id = DropDown.getAttribute("id");
+			DropDownIds.add(id);
+		}
+		//Doing a little cleanup to ensure that changes in previous test cases don't affect the outcome of the current test case
+		//Getting the ids of all the data transformer items and storing in a list.
+		List<WebElement> DataTransformerDropDowns = findElements(ImportObjects.configureFieldMappingDataTransformerDropDown);
+		List<String> DataTransformerDropDownIds = new ArrayList<>();
+		for(WebElement DataTransformerDropDown : DataTransformerDropDowns){
+			String id = DataTransformerDropDown.getAttribute("id");
+			DataTransformerDropDownIds.add(id);
+		}
+		for(int i = 0; i < MappingHeads.size() - 1; i++)	{
+			Select DataTransformerDropDownItems = new Select(findElement(By.id(DataTransformerDropDownIds.get(i))));
+			DataTransformerDropDownItems.selectByVisibleText("None");
+		}
+		//Getting the ids of all the data transformer input elements and storing in a list.
+		List<WebElement> DataTransformerValues = findElements(ImportObjects.configureFieldMappingTransformerInputTextArea);
+		List<String> DataTransformerInputIds = new ArrayList<>();
+		for(WebElement DataTransformerValue : DataTransformerValues){
+			String id = DataTransformerValue.getAttribute("id");
+			DataTransformerInputIds.add(id);
+		}
+		for(int i = 0; i < MappingHeads.size() - 1; i++)	{
+			driver.findElement(By.id(DataTransformerInputIds.get(i))).clear();
+		}
+		//Choosing values from the dropdown for the MappingHeads obtained above.
+		for(int i = 0; i < MappingHeads.size(); i++)	{
+			Select DropDownItems = new Select(findElement(By.id(DropDownIds.get(i))));
+			List<WebElement> DropDownLineItems = DropDownItems.getOptions();
+			for (WebElement DropDownLineItem : DropDownLineItems)	{
+//				DropDownItems.selectByVisibleText("None");
+				String ListItem =  DropDownLineItem.getText();
+				
+				String ListItemName = ListItem.split("\\(")[0];
+				
+				//System.out.println(MappingHeads.get(i).replaceAll("\\*", "") + " - " + ListItemName);
+				//if(MappingHeads.get(i).replaceAll("\\*", "").trim().contains(ListItemName.trim()) && !(MappingHeads.get(i).replaceAll("\\*",  "").trim().contains(FieldToIgnore)))	{
+				//if(MappingHeads.get(i).replaceAll("\\*", "").trim().contains(ListItemName.trim()) && !(FieldToIgnore.contains(MappingHeads.get(i).replaceAll("\\*",  "").trim())))	{
+				if(!(fieldToIgnore.contains(MappingHeads.get(i).replaceAll("\\*",  "").trim())))
+				{	
+					
+					System.out.println(MappingHeads.get(i).replaceAll("\\*",  "").trim());
+					if ((MappingHeads.get(i)).split("\\(")[0].replaceAll("\\*", "").trim().contains(ListItemName.trim())) {
+						 System.out.println("Item " +  MappingHeads.get(i).replaceAll("\\*",  "") + " found.");
+						 WebElement dropdown = driver.findElement(By.id(DropDownIds.get(i)));
+						 Select sel = new Select(dropdown);
+						 String value = null;
+						 for(int j=0;j<sel.getOptions().size();j++)
+						 {
+							 String header =MappingHeads.get(i).split("\\(")[0].replaceAll("\\*", "").trim();
+							 if(sel.getOptions().get(j).getText().contains(header))
+							 {
+								 value = sel.getOptions().get(j).getAttribute("value");
+								 break;
+							 }
+						 }
+						 
+//						 dropdown.findElement(By.xpath("//option[contains(text(),"+ ListItem +")]")).click();
+//						 DropDownItems.selectByVisibleText(ListItem);
+						DropDownItems.selectByValue(value);
+						 
+						 break;
+					}
+					
+				}else	{
+					DropDownItems.selectByVisibleText("None");
+				}
+			}
+		}
+	}
+	
+	/*
+	public void setFieldMapping(String FieldToIgnore)
+	{
+		List<WebElement> headers = driver.findElements(ImportObjects.configureFildMappingHeaders);
+		System.out.println(headers.toString());
+		
+		List<WebElement> dropDown = driver.findElements(ImportObjects.configureFieldMappingDropDown);
+		
+		System.out.println(dropDown.toString());
+		boolean isOptionPresent = false;
+		for(int i=0;i<headers.size();i++)
+		{
+			Select select = new Select(dropDown.get(i));
+			List<WebElement> dropdownOptions = select.getOptions();
+			
+			for(int j=0;j<dropdownOptions.size();j++){
+				String optionsText = dropdownOptions.get(j).getText();
+				System.out.println("Header " + headers.get(i).getText().trim());
+				System.out.println("Option " + optionsText);
+				
+				if(optionsText.trim().contains(headers.get(i).getText().trim()))
+				{
+					isOptionPresent = true;
+					select.selectByVisibleText(optionsText);
+					break;
+				}
+			}
+			if(isOptionPresent == false)
+			{
+				select.selectByVisibleText("None");
+			}
+		}
+	}
+	*/
+	public static boolean isContainedIn(String stringToBeFound, String parentString)	{
+		String[] parentStringSplit = parentString.split(",");
+		for(int i = 0; i < parentStringSplit.length; i++){
+			if(stringToBeFound.contentEquals(parentStringSplit[i].trim()))
+				return true;
+		}
+		return false;
+	}
+	
+	public void setDataTransformers(String fieldToSet, String dropDownValueToSet, String transformerInputToSet)	{
+		//Getting the list of all fields that are present on the page in the order in which they arrive
+		List<String> MappingHeads = new ArrayList<>();
+		List<WebElement> trs = findElements(By.xpath("//div[@id=\"form_container\"]/form[@id=\"field_attrs_form\"]//tbody/tr//td[1]"));
+		for(WebElement tr : trs)	{
+			String value = tr.getText();
+			//Ensuring that all unwanted values are removed.
+			if(!(value.contains("None") || value.contains("#")))
+				MappingHeads.add(value);
+		}
+		//Getting the ids of all the data transformer items and storing in a list.
+		List<WebElement> DataTransformerDropDowns = findElements(By.xpath("//div[@id=\"form_container\"]/form[@id=\"field_attrs_form\"]//tbody/tr//td[3]/select"));
+		List<String> DataTransformerDropDownIds = new ArrayList<>();
+		for(WebElement DataTransformerDropDown : DataTransformerDropDowns){
+			String id = DataTransformerDropDown.getAttribute("id");
+			DataTransformerDropDownIds.add(id);
+		}
+		//Choosing values from the dropdown for the MappingHeads obtained above.
+		for(int i = 0; i < MappingHeads.size() - 1; i++)	{
+			if(MappingHeads.get(i).trim().contains(fieldToSet.trim())){
+				Select DropDownItems = new Select(findElement(By.id(DataTransformerDropDownIds.get(i))));
+				List<WebElement> DropDownLineItems = DropDownItems.getOptions();
+				System.out.println(MappingHeads.get(i) + " - " + fieldToSet);
+				if(MappingHeads.get(i).trim().contains(fieldToSet.trim())){
+					for (WebElement DropDownLineItem : DropDownLineItems)	{
+						String ListItemName =  DropDownLineItem.getText();
+						System.out.println(ListItemName + ", " + transformerInputToSet);
+						if(ListItemName.contains(dropDownValueToSet))	{
+							DropDownItems.selectByVisibleText(ListItemName);
+							break;
+						}
+					}
+				}
+			}
+		}
+		//Getting the ids of all the data transformer input elements and storing in a list.
+		List<WebElement> DataTransformerValues = findElements(By.xpath("//div[@id=\"form_container\"]/form[@id=\"field_attrs_form\"]//tbody/tr//td[4]/textarea"));
+		List<String> DataTransformerInputIds = new ArrayList<>();
+		for(WebElement DataTransformerValue : DataTransformerValues){
+			String id = DataTransformerValue.getAttribute("id");
+			DataTransformerInputIds.add(id);
+		}
+		//Setting corresponding values for the mapping heads obtained above.
+		for(int i = 0; i < MappingHeads.size() - 1; i++)	{
+			System.out.println(MappingHeads.get(i) + " - " + fieldToSet);
+			if(MappingHeads.get(i).trim().contains(fieldToSet.trim())){
+				driver.findElement(By.id(DataTransformerInputIds.get(i))).clear();
+				if(dropDownValueToSet.contains("Default Value"))	{
+					driver.findElement(By.id(DataTransformerInputIds.get(i))).clear();
+					driver.findElement(By.id(DataTransformerInputIds.get(i))).sendKeys("Value=>" + transformerInputToSet);
+					break;
+				}
+				else if(dropDownValueToSet.contains("Convert to Date & Time")){
+					driver.findElement(By.id(DataTransformerInputIds.get(i))).clear();
+					driver.findElement(By.id(DataTransformerInputIds.get(i))).sendKeys("Format=>" + transformerInputToSet);
+				}
+				else if(dropDownValueToSet.contains("Merge")){
+					driver.findElement(By.id(DataTransformerInputIds.get(i))).clear();
+					driver.findElement(By.id(DataTransformerInputIds.get(i))).sendKeys("Columns=>" + transformerInputToSet);
+				}
+				else if(dropDownValueToSet.contains("Expression")){
+					driver.findElement(By.id(DataTransformerInputIds.get(i))).clear();
+					driver.findElement(By.id(DataTransformerInputIds.get(i))).sendKeys("Expr=>" + transformerInputToSet);
+				}
+			}
+		}
+		
+	}
+	
+	public boolean submitFieldMappings()	{
+//		scrollToElementAndClick(ImportObjects.submitButtonFinal);
+		scrollToConfigAndClick();
+//		sleep(2000);
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(driver.findElement(ImportObjects.submitImportToTempDB).isDisplayed())
+					return true;
+				else
+					return false;
+			}
+			catch(Exception e)	{
+				log.info("[submitFieldMappings] Waiting for element [" + ImportObjects.submitImportToMainDB.toString() + "] to show up..." + counter);
+				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+		return false;
+	}
+	
+	
+	public boolean configureFieldMappings(String... FieldToIgnore){
+		selectFieldMappings(FieldToIgnore);
+		return(submitFieldMappings());
+	}
+	
+	public void configureFields(String...FieldToIgnore )
+	{
+		selectFieldMappings(FieldToIgnore);
+		scrollToConfigAndClick();
+		
+	}
+	
+//	@Deprecated
+//	public boolean configureFieldMapping(String FieldToIgnore)
+//	{
+//		setFieldMapping(FieldToIgnore);
+// 		return(submitFieldMappings());
+//	}
+	
+	public boolean configureFieldMappingsAndImport(String FieldToIgnore)	{
+		if(configureFieldMappings(FieldToIgnore))	{
+			log.info("Successfully configured field mappings.");
+			if(importToTempDB())	{
+				log.info("Successfully imported to tempdb");
+				if(importToMainDB()){
+					log.info("Successfully imported to main db");
+					return true;
+				}
+				log.info("Unable to import to maindb");
+				return false;
+			}
+			log.info("Unable to import to tempdb");
+			return false;
+		}
+		log.info("Unable to configure field mappings.");
+		return false;	
+	}
+	
+	/** Added error string to capture the actual reason of failure to import file to temp DB */
+	public static String errors;
+	public boolean importToTempDB()	{
+		errors = new String();
+		boolean flag = false;
+//		scrollToBottomOfPage();
+//		sleep(1000);
+		scrollToElementAndClick(ImportObjects.submitImportToTempDB);
+//		scrollToBottom();
+		//==============================================================//
+		//-------------------Checking for Error Summary-------------------
+		//==============================================================//
+//		sleep(1000);
+		try
+		{
+			scrollToElementAndClick(ImportObjects.errorPreview);
+		}catch(Throwable t)
+		{
+			Actions action =  new Actions(driver);
+			action.keyDown(Keys.CONTROL).sendKeys(Keys.F5).perform();
+		}
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		sleep(2000);
+		String noImportErrors = driver.findElement(ImportObjects.errorPreviewNoError).getText();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		if(noImportErrors.contains("no data"))
+		{
+			log.info("There is  no import errors and error preview is clean");
+			System.out.println("There is  no import errors and error preview is clean");
+			if(isElementDisplayed(ImportObjects.submitImportToMainDB) && checkIfPageContains("Import to Main DB")){
+				flag = true;
+			}else{
+				flag = false;
+			}
+		}else
+		{
+			List<WebElement> errorRowList = driver.findElements(ImportObjects.errorPreviewImportErrors);
+			
+			for(int i=0;i<errorRowList.size();i++)
+			{
+//				errors = errorRowList.get(i+1).findElement(By.xpath("/td[1]")).getText() + " ";
+				int row = i+1;
+				errors = driver.findElement(By.xpath("//table[@id='table_error_summary']//tbody/tr["+row+"]/td[1]")).getText() + " ";
+			}
+			System.out.println("Errors found during import " + errors);
+			log.info("Errors found during import " + errors);
+		}
+//		if(checkIfPageContains("no data present"))	{
+//			System.out.println("Error preview is clean.");
+//			if(isElementDisplayed(ImportObjects.submitImportToMainDB) && checkIfPageContains("Import to Main DB"))
+//				flag = true;
+//			else
+//				flag = false;
+//		}
+//		else	
+//			log.info("Temp db insertion failed.");
+		return flag;
+	}
+	
+	
+
+	public boolean importToMainDB()	{
+				scrollToBottomOfPage();
+		/*scrollToBottom();
+//		ssleep(1000);
+		//		if(scrollToElementAndClick(ImportObjects.submitImportToMainDB))
+		//		{
+		int counter = 0;
+		while(counter < 10){
+			try	{
+				if(isElementDisplayed(ImportObjects.flashMessage))	{
+					if(getElementText(ImportObjects.flashMessage).trim().contains("No of records imported successfully :"))
+						return true;
+					else	{
+						log.info("Error message found - " + getElementText(ImportObjects.flashMessage));
+						return false;
+					}
+				}
+			}
+			catch(Exception e)	{
+				log.info("[checkFlashMessage] Waiting for element [" + ImportObjects.flashMessage + "] to show up..." + counter);
+				sleep(500);
+			}
+			counter = counter + 1;
+		}*/
+		
+		checkCheckBox(ImportObjects.importToMainDBCheckBox);
+		clickElement(ImportObjects.submitImportToTempDB);
+		//Due to high failure count while this method is executed, this is a temp addition to check for the message. 
+		if(checkIfPageContains("No of records imported successfully :"))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean checkFlashMessage(String flashMessage){
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(driver.findElement(ImportObjects.flashMessage).isDisplayed())	{
+					if(driver.findElement(ImportObjects.flashMessage).getText().trim().contains(flashMessage))
+						return true;
+					else
+						return false;
+				}
+			}
+			catch(Exception e)	{
+				log.info("[checkFlashMessage] Waiting for element [" + ImportObjects.flashMessage + "] to show up..." + counter);
+				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+		return false;
+	}
+	
+	public boolean importToMainDB(int value)	{
+		boolean flag = true;
+		scrollToBottomOfPage();
+		if(!driver.findElement(ImportObjects.submitImportToMainDB).isDisplayed())	return false;
+		driver.findElement(ImportObjects.submitImportToMainDB).click();
+		//==============================================================//
+		//--------------Verifying that record has been saved--------------
+		//==============================================================//
+		if(!driver.getPageSource().contains("No of records imported successfully : " + value))
+			flag = false;
+		return flag;
+	}
+	
+	public static void navigateToConfigureLoyaltyProgramPage()	{
+		scrollToElementAndClick(ImportObjects.settingsCog);
+		scrollToElementAndClick(ImportObjects.gratificationAndEngagement);
+		scrollToElementAndClick(ImportObjects.pointBankManagement);
+		scrollToElementAndClick(ImportObjects.loyaltyProgram);
+		scrollToElementAndClick(ImportObjects.configurePointsEngine);
+	}
+	
+	public void navigateToConfigureDataUploadFTP()	{
+		click(ImportObjects.settingsCog);
+		click(ImportObjects.masterDataManagement);
+		click(ImportObjects.dataImport1);
+		click(ImportObjects.dataImport2);
+		click(ImportObjects.configureDataUploadFTP);
+	}
+	
+	public void navigateToFTPScheduler()	{
+		click(ImportObjects.settingsCog);
+		sleep(2000);
+		click(ImportObjects.masterDataManagement);
+		click(ImportObjects.dataImport1);
+		click(ImportObjects.scheduledImports);
+	}
+	
+	public void navigateToScheduleFTP()	{
+		driver.get(TEST_URL + "/org/setup/configurations/notification/ReportsTable?flash=&callback=FTP");
+//		click(ImportObjects.settingsCog);
+//		click(ImportObjects.masterDataManagement);
+//		click(ImportObjects.dataImport1);
+//		click(ImportObjects.dataImport2);
+//		click(ImportObjects.scheduleDataUploadFTP);
+	}
+	
+	
+	public void navigateToCreateExpiryStrategyPage()	{
+		navigateToConfigureLoyaltyProgramPage();
+		scrollToElementAndClick(ImportObjects.pointsExpiry);
+	}
+	
+	public void navigateToPointsAllocationStrategyPage()	{
+		navigateToConfigureLoyaltyProgramPage();
+		scrollToElementAndClick(ImportObjects.pointsAllocation);
+	}
+	
+	public boolean createExpiryStrategy(String expiryName, String expiryTimeValues, String expiryTimeUnits)	{
+		scrollToElementAndClick(ImportObjects.createNewStrategy);
+		sleep(2000);
+		driver.switchTo().activeElement();
+		sleep(2000);
+		clearAndSendKeysToElement(ImportObjects.expiryStrategyName, expiryName);
+		clearAndSendKeysToElement(ImportObjects.expiryTimeValues, expiryTimeValues);
+		Select option = new Select(findElement(ImportObjects.expiryTimeUnits));
+		option.selectByVisibleText(expiryTimeUnits);
+		scrollToElementAndClick(ImportObjects.submitExpiryStrategy);
+		sleep(3000);
+		if(checkIfPageContains("Strategy has been saved"))
+				return true;
+		return false;
+	}
+	
+	public boolean configureExpiryStrategy() throws Exception	{
+		
+		//Create a new array
+		List<String> strategyList = new ArrayList<String>();
+		List<String> baseArray = Arrays.asList("Never_Expire", "NUM_MONTHS_END12", "EXPIRE_IN_100_DAYS");	
+		//Check if the expiry strategies are already created. If yes, move ahead, else create them.
+		navigateToCreateExpiryStrategyPage();
+		int numberOfStrategy = DBQueryHelper.queryWarehouseStrategies("name", "", "", "").length;
+		if(!(numberOfStrategy >= 3))	{
+			navigateToCreateExpiryStrategyPage();
+			if(createExpiryStrategy("Never_Expire", "0", "Never") && createExpiryStrategy("Expire_In_Hundred", "100", "No. of Days"))	{
+				click(ImportObjects.reconfigure);
+				closeWindowAlert(switchToWindowAlert());
+				if(checkIfPageContains("Reconfigured successfully"))
+					return true;
+			}
+			return false;
+		}
+		//Get the available strategies for this org.
+		String[][] availableStrategies = DBQueryHelper.queryWarehouseStrategies("name", "", "", "");
+		//Add the existing elements to an array. Then create the strategies that don't exist.
+//		List<WebElement> strategyTableElements = findElements(ImportObjects.existingExpiryStrategy);
+//		for(WebElement strategyTableElement : strategyTableElements)	{
+		for(int i = 0; i < availableStrategies.length; i++)	{
+			if(availableStrategies[i][0].contains("Never_Expire"))	{
+				//Add to the array
+				strategyList.add("Never_Expire");
+			}
+			else if(availableStrategies[i][0].contains("NUM_MONTHS_END12"))	{
+				strategyList.add("NUM_MONTHS_END12");
+			} 
+			else if(availableStrategies[i][0].contains("EXPIRE_IN_100_DAYS"))	{
+				strategyList.add("EXPIRE_IN_100_DAYS");
+			}
+		}
+		//No traverse the array and create the templates that don't exist.
+		for(int p = 0; p < 3; p++)	{
+			String strategy = baseArray.get(p);
+			boolean flag = false;
+			for(int q = 0; q < strategyList.size(); q++)	{
+				if(strategyList.get(q).toString().contentEquals(strategy))	{
+					flag = true;
+					break;
+				}
+			}
+			if(!flag){
+				if(strategy.contentEquals("Never_Expire"))
+					createExpiryStrategy("Never_Expire", "0", "Never");
+				if(strategy.contentEquals("NUM_MONTHS_END12"))
+					createExpiryStrategy("NUM_MONTHS_END12", "12", "Month(s) End");
+				if(strategy.contentEquals("EXPIRE_IN_100_DAYS"))
+					createExpiryStrategy("EXPIRE_IN_100_DAYS", "100", "No. of Days");
+			}
+		}
+		click(ImportObjects.reconfigure);
+		closeWindowAlert(switchToWindowAlert());
+		if(checkIfPageContains("Reconfigured successfully"))
+			return true;
+		return false;
+	}
+	
+	public boolean configureSlabs()	{
+		/*
+		 * Method yet to be completed as new UI is not working.
+		 */
+		return true;
+	}
+	
+	public String modifyCSV(String FilePath, List<String> FieldsToBeModified, List<String> ModificationValues) throws IOException	{
+		List<String> Values = null;
+		String DirName = FilePath.split("\\\\")[2];
+		String NameOfFile = DirName + "_" + System.currentTimeMillis()/1000;
+		String FullPath = csvStoragePath + DirName + "\\" + NameOfFile + ".csv";
+		FileReader reader = new FileReader(FilePath);
+		String[] HeaderItems = Utils.readHeadersFromCSV(reader);
+		//This ensures that the values array also has the same number of items as that of the header. 
+		String[] ValueItems = new String[HeaderItems.length];
+		reader.close();
+		FileWriter writer = new FileWriter(FullPath);
+		Utils.writeToCSV(writer, Arrays.asList(HeaderItems), 0);
+		FileReader NewReader = new FileReader(FilePath);
+		String[] Items = Utils.readFromCSV(NewReader);
+		for(int p = 0; p < Items.length; p++){
+			ValueItems[p] = Items[p];
+		}
+		for(int i = 0; i < HeaderItems.length; i++){
+			for(int j = 0; j < FieldsToBeModified.size(); j++)	{
+				if(HeaderItems[i].contains(FieldsToBeModified.get(j)))	{
+					ValueItems[i] = ModificationValues.get(j);
+					break;
+				}	
+			}
+		}
+		Values = Arrays.asList(ValueItems);
+		Utils.writeToCSV(writer, Values, 0);
+		writer.flush();
+		writer.close();
+		FullPath = csvStoragePath + DirName + "\\" + NameOfFile + ".csv";
+		return FullPath;
+	}
+	
+	
+//	public static String modify(String FilePath) throws Exception	{
+//		FileReader NewReader = new FileReader(FilePath);
+//		List<List<String>> existingValues = Utils.readFromCSVFull(NewReader);
+//		List<List<String>> newValues = new ArrayList<>();
+//		List<String> headers = Arrays.asList("Mobile", "Email", "Points", "Till IUN Or Store Ext Id", "Expire On");
+//		List<String> valueItems = new ArrayList<>();
+//		String FullPath = "C:\\CSVStorage1\\CustomerPromotion\\CustomerPromotion.csv";
+//		//This ensures that the values array also has the same number of items as that of the header. 
+//		FileWriter writer = new FileWriter(FullPath);
+//		Utils.writeToCSV(writer, headers, 0);
+//		List<String> v1 = new ArrayList<>();
+//		for(int i = 0; i < existingValues.size(); i++)	{
+//			valueItems = existingValues.get(i);
+//			//List<String> headers = Arrays.asList("Mobile", "Email", "Till IUN Or Store Ext Id", "Transaction Number", "Transaction Date", "Transaction Amount");
+//			v1 = Arrays.asList(valueItems.get(0), valueItems.get(1), "100", valueItems.get(2), "2015/03/24 00:00:00");
+//			newValues.add(v1);
+//			if((i + 1) % 10000 == 0)
+//				System.out.println("Done for " + (i + 1));
+//		}
+//		CSVHelper.populateCSVMultipleRowsForUTF8("CustomerPromotion", headers, newValues);
+//		writer.flush();
+//		writer.close();
+//		return FullPath;
+//	}
+//	
+	public static void main(String argv[]) throws Exception{
+////		modify("C:\\CSVStorage1\\TransactionBills\\TransactionBills_1426845006.csv");
+////		getAuth();
+		returnUnicode("??");
+	}
+	
+	public static void getAuth() throws Exception	{
+//		ENVIRONMENT = "us";
+//		INDEX_SERVER = "http://apitester.capillary.in/apitest_app";
+		final File f = new File(DBQueryHelper.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		Crypter crypter = null;
+		System.out.println(f.getAbsolutePath().toString().lastIndexOf("\\	"));
+		System.exit(1);
+		String keyczar = f.getAbsolutePath().substring(0, f.getAbsolutePath().toString().lastIndexOf("\\")); 
+		crypter = new Crypter(keyczar.substring(0, keyczar.lastIndexOf("\\")) + "\\keyczar");
+		String url = INDEX_SERVER + "/importtest?request=getAuth&cluster=" + ENVIRONMENT.toLowerCase();
+		System.out.println(url);
+		JsonElement jsonElement = new JsonParser().parse(sendGETURL(url));
+		JsonObject jObject = jsonElement.getAsJsonObject();
+		Set<Entry<String, JsonElement>>  jEntry = jsonElement.getAsJsonObject().entrySet(); 
+		for(Map.Entry<String,JsonElement> entry : jEntry){
+			System.out.println(entry.getKey());
+			try	{
+				USER_ID = new String(crypter.decrypt(entry.getKey()));
+				PASSWORD = new String(crypter.decrypt(jObject.get(entry.getKey()).toString().replaceAll("\"", "")));
+			}
+			catch (Exception e)	{
+				System.out.println("Unable to parse encrypted string. Exception - " + e);
+				System.exit(-1);
+			}
+		}
+	}
+	
+	public static String sendGETURL(String finalURL) throws Exception	{
+		String USER_AGENT = "Mozilla/5.0";
+		URL obj = new URL(finalURL);
+		log.info("Firing API - " + finalURL);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+ 
+		// optional default is GET
+		con.setRequestMethod("GET");
+ 
+		//add request header
+		con.setRequestProperty("User-Agent", USER_AGENT);
+ 
+		BufferedReader in = new BufferedReader(
+		        new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+ 
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine);
+		}
+		in.close();
+		return response.toString();
+	}
+	
+	public void cancelFileImport(){
+		//==============================================================//
+		//-------------------Cancelling the file upload--------------------
+		//==============================================================//
+		if(!(driver.findElement(ImportObjects.cancelFileImport).isSelected()))
+			driver.findElement(ImportObjects.cancelFileImport).click();
+		scrollToElementAndClick(ImportObjects.submitButtonCancelImport);
+	}
+	
+	public void deleteFileImport()	{
+		//==============================================================//
+		//-------------------Deleting the file upload--------------------
+		//==============================================================//
+		log.info("Deleting import.");
+		if(!(driver.findElement(ImportObjects.deleteFileImport).isSelected()))
+			scrollToElementAndClick(ImportObjects.deleteFileImport);
+		scrollToElementAndClick(ImportObjects.submitButtonCancelImport);
+	}
+	
+	public boolean checkOrgEntityDetails(String type, List<String> orgEntityDetails) throws Exception{
+		int x;
+		switch(type.toLowerCase())	{
+			case "zone":
+				Utils.navigateToSearchZones();
+				driver.findElement(ImportObjects.orgEntitiesSearchArea).sendKeys(orgEntityDetails.get(1));
+				if(driver.getPageSource().contains(orgEntityDetails.get(1))) 	{
+					driver.findElement(By.linkText(orgEntityDetails.get(1))).click();
+					return true;	
+				}
+				return false;
+			case "concept":
+				Utils.navigateToSearchConcepts();
+				driver.findElement(ImportObjects.orgEntitiesSearchArea).sendKeys(orgEntityDetails.get(1));
+				if(driver.getPageSource().contains(orgEntityDetails.get(1))) 	{
+					driver.findElement(By.linkText(orgEntityDetails.get(1))).click();
+					return true;	
+				}
+				return false;
+			case "store":
+				Utils.navigateToSearchStores();
+				driver.findElement(ImportObjects.orgEntitiesSearchArea).sendKeys(orgEntityDetails.get(1));
+				if(driver.getPageSource().contains(orgEntityDetails.get(1))) 	{
+					driver.findElement(By.linkText(orgEntityDetails.get(1))).click();
+					return true;	
+				}
+				return false;
+			case "storetills":
+				Utils.navigateToSearchStoreTills();
+				/*
+				 * There are some cases (bulk import of store server) in which we pass only the name of the org entity and no other details. 
+				 * In those cases, the orgEntityDetails array will only contain the username and nothing else. Hence the variable x is used
+				 * to identify such a case and prevent extra code from being written.
+				 */ 
+				if(orgEntityDetails.size() == 1)
+					x = 0;
+				else	
+					x = 6;
+				driver.findElement(ImportObjects.orgEntitiesSearchArea).sendKeys(orgEntityDetails.get(x));	
+				sleep(1000);
+				if(driver.getPageSource().contains(orgEntityDetails.get(x))) 	{
+					driver.findElement(By.linkText(orgEntityDetails.get(x))).click();
+					return true;	
+				}
+				driver.findElement(ImportObjects.orgEntitiesSearchArea).sendKeys(orgEntityDetails.get(5));
+				sleep(1000);
+				if(driver.getPageSource().contains(orgEntityDetails.get(6))) 	{
+					driver.findElement(By.linkText(orgEntityDetails.get(6))).click();
+					return true;
+				}
+				break;
+			case "storetillwithoutstorecode":
+				Utils.navigateToSearchStoreTills();
+				driver.findElement(ImportObjects.orgEntitiesSearchArea).sendKeys(orgEntityDetails.get(4));
+				sleep(1000);
+				if(driver.getPageSource().contains(orgEntityDetails.get(5))) 	{
+					driver.findElement(By.linkText(orgEntityDetails.get(5))).click();
+					return true;
+				}
+				break;
+			case "store server":
+				Utils.navigateToSearchStoreServer();
+				/*
+				 * There are some cases (bulk import of store server) in which we pass only the name of the org entity and no other details. 
+				 * In those cases, the orgEntityDetails array will only contain the username and nothing else. Hence the variable x is used
+				 * to identify such a case and prevent extra code from being written.
+				 */ 
+				if(orgEntityDetails.size() == 1)
+					x = 0;
+				else	
+					x = 1;
+				driver.findElement(ImportObjects.orgEntitiesSearchArea).sendKeys(orgEntityDetails.get(x));	
+				sleep(1000);
+				if(driver.getPageSource().contains(orgEntityDetails.get(x))) 	{
+					driver.findElement(By.linkText(orgEntityDetails.get(x))).click();
+					return true;	
+				}
+				break;
+			default:
+				return false;
+		}
+		return false;
+	}
+	
+	
+	public static String getElementText(By Element){
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(driver.findElement(Element).isDisplayed())	{
+//					System.out.println(driver.findElement(Element).getText().trim());
+					return(driver.findElement(Element).getText().trim());
+				}
+				else
+					return null;
+			}
+			catch(Exception e)	{
+				log.info("[getElementText] Waiting for element [" + Element + "] to show up..." + counter);
+				if(e instanceof WebDriverException)
+					return null;
+				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+		return null;
+	}
+	
+	public void clickElement(By element)	{
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(driver.findElement(element).isDisplayed())	{
+					driver.findElement(element).click();
+					return;
+				}
+				else	{
+					return;
+				}
+			}
+			catch(Exception e)	{
+				log.info("[clickElement] Waiting for element [" + element.toString() + "] to show up..." + counter);
+				if(e instanceof WebDriverException)
+					return;
+				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+	}
+	
+	public static void clearAndSendKeysToElement(By element, String Keys){
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(driver.findElement(element).isDisplayed())	{
+					driver.findElement(element).clear();
+					driver.findElement(element).sendKeys(Keys);
+				}
+				return;
+			}
+			catch(Exception e)	{
+				log.info("[clearAndSendKeysToElement] Waiting for element [" + element.toString() + "] to show up..." + counter);
+				if(e instanceof WebDriverException)
+					return;
+				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+		return;
+	}
+	
+	public void sendKeysToElement(By element, String Keys){
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(driver.findElement(element).isDisplayed())	{
+					driver.findElement(element).sendKeys(Keys);
+				}
+				return;
+			}
+			catch(Exception e)	{
+				log.info(" [sendKeysToElement] Waiting for element [" + element.toString() + "] to show up..." + counter);
+				if(e instanceof WebDriverException)
+					return;
+				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+		return;
+	}
+	
+	public boolean checkIfPageContains(String StringToCheck){
+		int count = 0;
+		while(count < 5){
+			if(driver.getPageSource().contains(StringToCheck))	
+				return true;
+			else	{
+				log.info("[checkIfPageContains] Waiting for string to show up..." + StringToCheck + " " + count);
+				sleep(1000);
+				count = count + 1;
+			}
+		}
+		return false;
+	}
+	
+	public boolean checkIfPageContainsExact(String StringToCheck)	{
+		if(driver.getPageSource().contentEquals(StringToCheck))
+			return true;
+		return false;
+	}
+	
+	public static boolean isElementDisplayed(By element){
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(driver.findElement(element).isDisplayed())
+					return true;
+				else
+					return false;
+			}
+			catch(Exception e)	{
+				log.info("[isElementDisplayed] Waiting for element [" + element + "] to show up..." + counter);
+				if(e instanceof WebDriverException)
+					return false;
+				sleep(1000);
+				if(counter > 5)
+					return false;
+			}
+			counter = counter + 1;
+		}
+		return false;
+	}
+	
+	public boolean isElementSelected(By element){
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(driver.findElement(element).isSelected())
+					return true;
+				else
+					return false;
+			}
+			catch(Exception e)	{
+				log.info("[isElementSelected] Waiting for element [" + element + "] to show up..." + counter);
+				if(e instanceof WebDriverException)
+					return false;
+				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+		return false;
+	}
+	
+	public void scrollToBottomOfPage(){
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("window.scrollTo(0,Math.max(document.documentElement.scrollHeight,document.body.scrollHeight,document.documentElement.clientHeight));");
+		jse.executeScript("window.scrollBy(10000,10000);", "");
+		jse.executeScript("window.scroll(10000,10000);");
+//		Actions actions = new Actions(driver);
+//		actions.keyDown(Keys.CONTROL).sendKeys(Keys.END).perform();
+	}
+	
+	public static boolean scrollToElementAndClick(By element){
+		int counter = 0;
+		while(counter < 5){
+			try	{
+				if(isElementDisplayed(element))
+				{
+					Point point= driver.findElement(element).getLocation();
+					scrollToPoint(point);
+//					sleep(1000);
+					driver.findElement(element).click();
+					return true;
+				}
+				else 	{
+					Point point2= driver.findElement(element).getLocation();
+					scrollToPoint(point2);
+					throw new ElementNotFoundException(element.toString(), "", "");
+				}
+			}
+			catch(Exception e)	{
+				log.info("[scrollToElementAndClick] Waiting for element [" + element + "] to show up..." + counter);
+				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+		return false;
+	}
+	
+	public static void checkCheckBox(By element)
+	{
+		if(!driver.findElement(element).isSelected())
+		{
+			driver.findElement(element).click();
+		}
+	}
+	
+	public static void uncheckCheckBox(By element)
+	{
+		if(driver.findElement(element).isSelected())
+		{
+			driver.findElement(element).click();
+		}
+	}
+	
+	
+	public static boolean findTheElementandPerform(By by)
+	
+	{
+		int counter = 0;
+		while(counter < 5){
+			try	{
+					  WebElement element = driver.findElement(by);
+					  ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+						element.click();
+					   return true;
+				}
+			catch(Exception e)	{
+					log.info("[scrollToElementAndClick] Waiting for element to show up..." + counter);
+					sleep(1000);
+				}
+				counter = counter + 1;
+			}
+			return false;
+	}
+	
+	public static boolean findElementandClick()
+	{
+		int counter = 0;
+		while(counter < 5){
+			try{	
+				WebElement element = driver.findElement(By.id("templates_form__submit"));
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+				element.click();
+
+				return true;
+			}
+			catch(Exception e)	{
+				log.info("[findElementandClick] Waiting for element to show up..." + counter);
+//				sleep(1000);
+			}
+			counter = counter + 1;
+		}
+		return false;
+
+	}
+	
+	public static void scrollToConfigAndClick(){
+					WebElement element = driver.findElement(By.id("submit"));
+					((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+					element.click();
+	}
+	
+	public void scrollToBottom() {
+	
+		WebElement element = driver.findElement(By.id("maindb_form__submit"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+		element.click();
+		
+	}
+	public static byte[] base64Encode(String stringToEncode){
+		byte[] encodedBytes = Base64.encodeBase64(stringToEncode.getBytes());
+		return encodedBytes;
+	}
+	
+	public static byte[] base64Decode(byte[] stringToDecode){
+		byte[] decodedBytes = Base64.decodeBase64(stringToDecode);
+		return decodedBytes;
+	}
+	
+	public static boolean writeSubscriptionStatusToFile(
+			int userCount, 
+			String userMobile, 
+			String userEmail, 
+			String smsTrans,
+			String smsBulk, 
+			String emailTrans, 
+			String emailBulk) throws Exception	{
+		String recordToWrite = "user" + Utils.intToString(userCount) + "=" + userMobile + ";" + userEmail + ";" + smsTrans + ";" + smsBulk + ";" + emailTrans  + ";" + emailBulk + ";";
+		FileWriter writer = new FileWriter(fileLocationForUserSubscriptionData, true);
+		writer.append("\n");
+		writer.append(recordToWrite);
+		writer.flush();
+		writer.close();
+		return true;
+	}
+	
+//	public static void main(String argv[]) throws Exception{
+//		writeSubscriptionStatusToFile(1, "919535540110", "testing@gmail", "OPTIN", "OPTOUT", "OPTOUT", "OPTOUT");
+//		writeSubscriptionStatusToFile(1, "919535540110", "testing@gmail", "OPTIN", "OPTOUT", "OPTOUT", "OPTOUT");
+//	}
+	
+	public static void scrollToPoint(Point point) {
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("scroll(" + point.getX() + "," + (point.getY() - 200) + ")");
+	}
+	
+	/*
+	 * This method is just a temp method that will be used in all cases where customer registration is necessary. 
+	 * This will be used until Sriharsha releases an API for the same.
+	 */
+	public List<String> registerCustomer() throws Exception	{
+		String UniqueIdentifier = "MOBILE";
+		List<String> valueList = GenerateCSVLoyaltyCustomer.populateLoyaltyCustomersCSVi18n();
+		//==============================================================//
+		//Navigating to the page where the CSV can be uploaded
+		//==============================================================//
+		Assert.assertTrue(navigateToDataImportEntryUploadCSV(valueList.get(0)), "Unable to upload CSV file.");
+		//==============================================================//
+		//Under 'setup Import', we're choosing the appropriate profile. In this case, it's Loyalty Customer Registration
+		//==============================================================//
+		//Pass the object related to the profile to choose and the name of the expected template
+		Assert.assertTrue(setupImport("Loyalty Customers", expectedTemplate), "Unable to 'setup import'.");
+		//==============================================================//
+		//-------------------Configuring the template--------------------
+		//==============================================================//
+		configureTemplateLoyaltyCustomerRegistration(false, false, "first_name, last_name", null, true, false, false, null, false, UniqueIdentifier);
+		//==============================================================//
+		//-------------------Configure Field Mappings--------------------
+		//==============================================================//
+		Assert.assertTrue(configureFieldMappings("NONE"), "Unable to configure field mappings.");
+		Assert.assertTrue(importToTempDB(), "Unable to import to tempdb");
+		Assert.assertTrue(importToMainDB(), "Unable to import to maindb");
+		return valueList;
+	}
+	
+	public boolean completeCustomerPromotion(boolean createInputFile, 
+			String promotionName, 
+			String points, 
+			String fileName, 
+			boolean appendCountryCode, 
+			String mobileNumber,
+			String externalId) throws Exception	{
+		String customerUniqueIdentification = "MOBILE";
+		String modifiedFileName = "";
+		if(createInputFile){
+			//Reading existing data from Customer CSV
+			List<String> ValueList = GenerateCSVCustomerPromotion.PopulateBasicCustomerPromotionCSV(45, mobileNumber, externalId);
+			sleep(1000);
+//			modifiedFileName = modifyCSV(ValueList.get(0), Arrays.asList("Mobile", "Points"), Arrays.asList(mobileValueWithZeroPoints, points));
+			modifiedFileName = modifyCSV(ValueList.get(0), Arrays.asList("Points"), Arrays.asList(points));
+			Assert.assertTrue(navigateToDataImportEntryUploadCSV(modifiedFileName), "Unable to upload CSV file.");
+		}
+		else	{
+			Assert.assertTrue(navigateToDataImportEntryUploadCSV(fileName), "Unable to upload CSV file.");
+		}
+		//==============================================================//
+		//Under 'Setup Import', we're choosing the appropriate profile. In this case, it's Stores
+		setupImport("Customer Promotion", expectedTemplate);
+		Assert.assertTrue(checkIfPageContains("Configure Template"), "Unable to 'setup import'.");
+		//==============================================================//
+		//-------------------Configuring the template--------------------
+		//==============================================================//
+		configureTemplateCustomerPromotion(customerUniqueIdentification, appendCountryCode, false, null, promotionName);
+		//==============================================================//
+		//-------------------Configure Field Mappings--------------------
+		//==============================================================//
+		Assert.assertTrue(configureFieldMappings("Email"), "Unable to configure field mappings.");
+		Assert.assertTrue(importToTempDB(), "Unable to import to tempdb");
+		Assert.assertTrue(importToMainDB(), "Unable to import to maindb");
+		return true;
+	}
+	
+	public  void  checkIfMemberCareHasLoaded(String orgName, String customerID)
+	{
+		boolean memeberCareHasLoaded = false;
+		
+			for(int i=0;i<4;i++)
+			{
+				try{
+					driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+					driver.findElement(ImportObjects.customerSearchForm).isDisplayed();
+					memeberCareHasLoaded = true;
+					break;
+				}catch(Throwable t)
+				{
+					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+					Actions action = new  Actions(driver);
+					action.keyDown(Keys.CONTROL).sendKeys(Keys.F5).build().perform();
+				}finally
+				{
+					driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+				}
+			}
+		
+		Assert.assertEquals(memeberCareHasLoaded, true, "Member care screen has not loaded for the org " + orgName + " customerID " + customerID);
+	}
+}

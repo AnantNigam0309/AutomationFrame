@@ -1,0 +1,23 @@
+package Engine;
+
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
+public class executorMain {
+
+	public static void main(String[] args) throws IOException, ParseException {
+		/*
+		System.out.println("sfsdf");
+		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+		//System.out.println(br.readLine());
+		String obj =br.readLine().toString();
+		JSONParser parse=new JSONParser();
+		JSONObject obj1=(JSONObject)parse.parse(obj);
+		System.out.println(obj1.get("org"));
+		*/
+		
+
+	}
+
+}

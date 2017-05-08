@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="1" failed="0" total="2" passed="1">
+  <reporter-output>
+    <line>
+      <![CDATA[<div "featureFile">Feature File: testModule.feature</div>]]>
+    </line>
+    <line>
+      <![CDATA[<div "feature">Feature: This is a Test file used to do a dry run</div>]]>
+    </line>
+    <line>
+      <![CDATA[<div "scenario">Scenario: Test Scene</div>]]>
+    </line>
+    <line>
+      <![CDATA[<div "result">Given  I am navigating to site (passed : 0s)</div>]]>
+    </line>
+  </reporter-output>
+  <suite name="Suite" duration-ms="45691" started-at="2017-05-04T09:47:43Z" finished-at="2017-05-04T09:48:29Z">
+    <groups>
+      <group name="cucumber">
+        <method signature="testNGTestRunnerCampaign.run_cukes()[pri:0, instance:Engine.testNGTestRunnerCampaign@64bf3bbf]" name="run_cukes" class="Engine.testNGTestRunnerCampaign"/>
+        <method signature="testngTestRunnerCCMS.run_cukes()[pri:0, instance:Engine.testngTestRunnerCCMS@520a3426]" name="run_cukes" class="Engine.testngTestRunnerCCMS"/>
+      </group> <!-- cucumber -->
+    </groups>
+    <test name="Test_1" duration-ms="13605" started-at="2017-05-04T09:47:43Z" finished-at="2017-05-04T09:47:57Z">
+      <class name="Engine.testNGTestRunnerCampaign">
+        <test-method status="PASS" signature="beforeMethod(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Engine.testNGTestRunnerCampaign@64bf3bbf]" name="beforeMethod" is-config="true" duration-ms="13167" started-at="2017-05-04T15:17:43Z" finished-at="2017-05-04T15:17:56Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Ubuntu]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Release1.1]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="run_cukes()[pri:0, instance:Engine.testNGTestRunnerCampaign@64bf3bbf]" name="run_cukes" duration-ms="420" started-at="2017-05-04T15:17:56Z" description="Runs Cucumber Features" finished-at="2017-05-04T15:17:57Z">
+          <reporter-output>
+            <line>
+              <![CDATA[<div "featureFile">Feature File: testModule.feature</div>]]>
+            </line>
+            <line>
+              <![CDATA[<div "feature">Feature: This is a Test file used to do a dry run</div>]]>
+            </line>
+            <line>
+              <![CDATA[<div "scenario">Scenario: Test Scene</div>]]>
+            </line>
+            <line>
+              <![CDATA[<div "result">Given  I am navigating to site (passed : 0s)</div>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- run_cukes -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:Engine.testNGTestRunnerCampaign@64bf3bbf]" name="afterMethod" is-config="true" duration-ms="0" started-at="2017-05-04T15:17:57Z" finished-at="2017-05-04T15:17:57Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+      </class> <!-- Engine.testNGTestRunnerCampaign -->
+    </test> <!-- Test_1 -->
+    <test name="Test_2" duration-ms="45691" started-at="2017-05-04T09:47:43Z" finished-at="2017-05-04T09:48:29Z">
+      <class name="Engine.testngTestRunnerCCMS">
+        <test-method status="FAIL" signature="beforeMethod()[pri:0, instance:Engine.testngTestRunnerCCMS@520a3426]" name="beforeMethod" is-config="true" duration-ms="0" started-at="2017-05-04T15:17:43Z" finished-at="2017-05-04T15:17:43Z">
+          <exception class="org.openqa.selenium.WebDriverException">
+            <message>
+              <![CDATA[Failed to connect to binary FirefoxBinary(/usr/bin/firefox) on port 7055; process output follows: 
+fox/browser/features/e10srollout@mozilla.org.xpi
+1493891264854	addons.xpi	DEBUG	Calling bootstrap method startup on e10srollout@mozilla.org version 1.14
+1493891264855	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/features/firefox@getpocket.com.xpi
+1493891264855	addons.xpi	DEBUG	Calling bootstrap method startup on firefox@getpocket.com version 1.0.5
+1493891264857	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/extensions/langpack-en-GB@firefox.mozilla.org.xpi
+1493891264858	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/extensions/langpack-en-ZA@firefox.mozilla.org.xpi
+1493891264860	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/features/webcompat@mozilla.org.xpi
+1493891264860	addons.xpi	DEBUG	Calling bootstrap method startup on webcompat@mozilla.org version 1.0
+1493891264863	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1493891264864	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1493891264864	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1493891264866	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1493891264866	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1493891264867	addons.manager	DEBUG	Starting provider: GMPProvider
+1493891264872	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1493891264872	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1493891264872	addons.manager	DEBUG	Starting provider: PluginProvider
+1493891264872	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1493891264873	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1493891264874	addons.manager	DEBUG	Completed startup sequence
+1493891267213	addons.manager	DEBUG	Starting provider: <unnamed-provider>
+1493891267213	addons.manager	DEBUG	Registering shutdown blocker for <unnamed-provider>
+1493891267213	addons.manager	DEBUG	Provider finished startup: <unnamed-provider>
+1493891267300	DeferredSave.extensions.json	DEBUG	Write succeeded
+1493891267300	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 19
+1493891267300	DeferredSave.extensions.json	DEBUG	Starting timer
+1493891267314	addons.repository	DEBUG	No addons.json found.
+1493891267314	DeferredSave.addons.json	DEBUG	Save changes
+1493891267316	DeferredSave.addons.json	DEBUG	Starting timer
+1493891267331	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1493891267331	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1493891267331	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+1493891267334	DeferredSave.extensions.json	DEBUG	Starting write
+1493891267351	DeferredSave.extensions.json	DEBUG	Write succeeded
+1493891267368	DeferredSave.addons.json	DEBUG	Starting write
+1493891267540	DeferredSave.addons.json	DEBUG	Write succeeded
+1493891275647	addons.xpi	DEBUG	Calling bootstrap method shutdown on webcompat@mozilla.org version 1.0
+1493891275648	addons.xpi	DEBUG	Calling bootstrap method shutdown on firefox@getpocket.com version 1.0.5
+1493891275649	addons.xpi	DEBUG	Calling bootstrap method shutdown on e10srollout@mozilla.org version 1.14
+1493891275649	addons.xpi	DEBUG	Calling bootstrap method shutdown on aushelper@mozilla.org version 2.0
+1493891275942	addons.manager	DEBUG	shutdown
+1493891275943	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1493891275943	addons.xpi	DEBUG	shutdown
+1493891275944	addons.xpi-utils	DEBUG	shutdown
+1493891275945	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1493891275946	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1493891275949	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1493891275949	addons.manager	DEBUG	Calling shutdown blocker for <unnamed-provider>
+1493891275951	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1493891275955	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1493891275959	addons.manager	DEBUG	Async provider shutdown done
+
+Build info: version: '2.53.1', revision: 'a36b8b1cd5757287168e54b817830adce9b0158d', time: '2016-06-30 19:26:09'
+System info: host: 'CAP-LAP-803', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.4.0-75-generic', java.version: '1.8.0_131'
+Driver info: driver.version: FirefoxDriver]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.WebDriverException: Failed to connect to binary FirefoxBinary(/usr/bin/firefox) on port 7055; process output follows: 
+fox/browser/features/e10srollout@mozilla.org.xpi
+1493891264854	addons.xpi	DEBUG	Calling bootstrap method startup on e10srollout@mozilla.org version 1.14
+1493891264855	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/features/firefox@getpocket.com.xpi
+1493891264855	addons.xpi	DEBUG	Calling bootstrap method startup on firefox@getpocket.com version 1.0.5
+1493891264857	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/extensions/langpack-en-GB@firefox.mozilla.org.xpi
+1493891264858	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/extensions/langpack-en-ZA@firefox.mozilla.org.xpi
+1493891264860	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/features/webcompat@mozilla.org.xpi
+1493891264860	addons.xpi	DEBUG	Calling bootstrap method startup on webcompat@mozilla.org version 1.0
+1493891264863	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1493891264864	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1493891264864	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1493891264866	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1493891264866	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1493891264867	addons.manager	DEBUG	Starting provider: GMPProvider
+1493891264872	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1493891264872	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1493891264872	addons.manager	DEBUG	Starting provider: PluginProvider
+1493891264872	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1493891264873	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1493891264874	addons.manager	DEBUG	Completed startup sequence
+1493891267213	addons.manager	DEBUG	Starting provider: <unnamed-provider>
+1493891267213	addons.manager	DEBUG	Registering shutdown blocker for <unnamed-provider>
+1493891267213	addons.manager	DEBUG	Provider finished startup: <unnamed-provider>
+1493891267300	DeferredSave.extensions.json	DEBUG	Write succeeded
+1493891267300	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 19
+1493891267300	DeferredSave.extensions.json	DEBUG	Starting timer
+1493891267314	addons.repository	DEBUG	No addons.json found.
+1493891267314	DeferredSave.addons.json	DEBUG	Save changes
+1493891267316	DeferredSave.addons.json	DEBUG	Starting timer
+1493891267331	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1493891267331	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1493891267331	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+1493891267334	DeferredSave.extensions.json	DEBUG	Starting write
+1493891267351	DeferredSave.extensions.json	DEBUG	Write succeeded
+1493891267368	DeferredSave.addons.json	DEBUG	Starting write
+1493891267540	DeferredSave.addons.json	DEBUG	Write succeeded
+1493891275647	addons.xpi	DEBUG	Calling bootstrap method shutdown on webcompat@mozilla.org version 1.0
+1493891275648	addons.xpi	DEBUG	Calling bootstrap method shutdown on firefox@getpocket.com version 1.0.5
+1493891275649	addons.xpi	DEBUG	Calling bootstrap method shutdown on e10srollout@mozilla.org version 1.14
+1493891275649	addons.xpi	DEBUG	Calling bootstrap method shutdown on aushelper@mozilla.org version 2.0
+1493891275942	addons.manager	DEBUG	shutdown
+1493891275943	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1493891275943	addons.xpi	DEBUG	shutdown
+1493891275944	addons.xpi-utils	DEBUG	shutdown
+1493891275945	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1493891275946	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1493891275949	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1493891275949	addons.manager	DEBUG	Calling shutdown blocker for <unnamed-provider>
+1493891275951	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1493891275955	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1493891275959	addons.manager	DEBUG	Async provider shutdown done
+
+Build info: version: '2.53.1', revision: 'a36b8b1cd5757287168e54b817830adce9b0158d', time: '2016-06-30 19:26:09'
+System info: host: 'CAP-LAP-803', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.4.0-75-generic', java.version: '1.8.0_131'
+Driver info: driver.version: FirefoxDriver
+	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.start(NewProfileExtensionConnection.java:125)
+	at org.openqa.selenium.firefox.FirefoxDriver.startClient(FirefoxDriver.java:271)
+	at org.openqa.selenium.remote.RemoteWebDriver.<init>(RemoteWebDriver.java:119)
+	at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:216)
+	at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:211)
+	at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:207)
+	at org.openqa.selenium.firefox.FirefoxDriver.<init>(FirefoxDriver.java:120)
+	at Engine.testngTestRunnerCCMS.beforeMethod(testngTestRunnerCCMS.java:40)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:80)
+	at org.testng.internal.Invoker.invokeConfigurationMethod(Invoker.java:564)
+	at org.testng.internal.Invoker.invokeConfigurations(Invoker.java:213)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:653)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.access$000(SuiteRunner.java:37)
+	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:368)
+	at org.testng.internal.thread.ThreadUtil$2.call(ThreadUtil.java:64)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: org.openqa.selenium.firefox.NotConnectedException: Unable to connect to host 127.0.0.1 on port 7055 after 45000 ms. Firefox console output:
+fox/browser/features/e10srollout@mozilla.org.xpi
+1493891264854	addons.xpi	DEBUG	Calling bootstrap method startup on e10srollout@mozilla.org version 1.14
+1493891264855	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/features/firefox@getpocket.com.xpi
+1493891264855	addons.xpi	DEBUG	Calling bootstrap method startup on firefox@getpocket.com version 1.0.5
+1493891264857	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/extensions/langpack-en-GB@firefox.mozilla.org.xpi
+1493891264858	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/extensions/langpack-en-ZA@firefox.mozilla.org.xpi
+1493891264860	addons.xpi	DEBUG	Registering manifest for /usr/lib/firefox/browser/features/webcompat@mozilla.org.xpi
+1493891264860	addons.xpi	DEBUG	Calling bootstrap method startup on webcompat@mozilla.org version 1.0
+1493891264863	addons.manager	DEBUG	Registering shutdown blocker for XPIProvider
+1493891264864	addons.manager	DEBUG	Provider finished startup: XPIProvider
+1493891264864	addons.manager	DEBUG	Starting provider: LightweightThemeManager
+1493891264866	addons.manager	DEBUG	Registering shutdown blocker for LightweightThemeManager
+1493891264866	addons.manager	DEBUG	Provider finished startup: LightweightThemeManager
+1493891264867	addons.manager	DEBUG	Starting provider: GMPProvider
+1493891264872	addons.manager	DEBUG	Registering shutdown blocker for GMPProvider
+1493891264872	addons.manager	DEBUG	Provider finished startup: GMPProvider
+1493891264872	addons.manager	DEBUG	Starting provider: PluginProvider
+1493891264872	addons.manager	DEBUG	Registering shutdown blocker for PluginProvider
+1493891264873	addons.manager	DEBUG	Provider finished startup: PluginProvider
+1493891264874	addons.manager	DEBUG	Completed startup sequence
+1493891267213	addons.manager	DEBUG	Starting provider: <unnamed-provider>
+1493891267213	addons.manager	DEBUG	Registering shutdown blocker for <unnamed-provider>
+1493891267213	addons.manager	DEBUG	Provider finished startup: <unnamed-provider>
+1493891267300	DeferredSave.extensions.json	DEBUG	Write succeeded
+1493891267300	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 19
+1493891267300	DeferredSave.extensions.json	DEBUG	Starting timer
+1493891267314	addons.repository	DEBUG	No addons.json found.
+1493891267314	DeferredSave.addons.json	DEBUG	Save changes
+1493891267316	DeferredSave.addons.json	DEBUG	Starting timer
+1493891267331	addons.manager	DEBUG	Starting provider: PreviousExperimentProvider
+1493891267331	addons.manager	DEBUG	Registering shutdown blocker for PreviousExperimentProvider
+1493891267331	addons.manager	DEBUG	Provider finished startup: PreviousExperimentProvider
+1493891267334	DeferredSave.extensions.json	DEBUG	Starting write
+1493891267351	DeferredSave.extensions.json	DEBUG	Write succeeded
+1493891267368	DeferredSave.addons.json	DEBUG	Starting write
+1493891267540	DeferredSave.addons.json	DEBUG	Write succeeded
+1493891275647	addons.xpi	DEBUG	Calling bootstrap method shutdown on webcompat@mozilla.org version 1.0
+1493891275648	addons.xpi	DEBUG	Calling bootstrap method shutdown on firefox@getpocket.com version 1.0.5
+1493891275649	addons.xpi	DEBUG	Calling bootstrap method shutdown on e10srollout@mozilla.org version 1.14
+1493891275649	addons.xpi	DEBUG	Calling bootstrap method shutdown on aushelper@mozilla.org version 2.0
+1493891275942	addons.manager	DEBUG	shutdown
+1493891275943	addons.manager	DEBUG	Calling shutdown blocker for XPIProvider
+1493891275943	addons.xpi	DEBUG	shutdown
+1493891275944	addons.xpi-utils	DEBUG	shutdown
+1493891275945	addons.manager	DEBUG	Calling shutdown blocker for LightweightThemeManager
+1493891275946	addons.manager	DEBUG	Calling shutdown blocker for GMPProvider
+1493891275949	addons.manager	DEBUG	Calling shutdown blocker for PluginProvider
+1493891275949	addons.manager	DEBUG	Calling shutdown blocker for <unnamed-provider>
+1493891275951	addons.manager	DEBUG	Calling shutdown blocker for PreviousExperimentProvider
+1493891275955	addons.xpi	DEBUG	Notifying XPI shutdown observers
+1493891275959	addons.manager	DEBUG	Async provider shutdown done
+
+	at org.openqa.selenium.firefox.internal.NewProfileExtensionConnection.start(NewProfileExtensionConnection.java:113)
+	... 29 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.WebDriverException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="SKIP" signature="run_cukes()[pri:0, instance:Engine.testngTestRunnerCCMS@520a3426]" name="run_cukes" duration-ms="1" started-at="2017-05-04T15:18:29Z" description="Runs Cucumber Features" finished-at="2017-05-04T15:18:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- run_cukes -->
+        <test-method status="SKIP" signature="afterMethod()[pri:0, instance:Engine.testngTestRunnerCCMS@520a3426]" name="afterMethod" is-config="true" duration-ms="0" started-at="2017-05-04T15:18:29Z" finished-at="2017-05-04T15:18:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+      </class> <!-- Engine.testngTestRunnerCCMS -->
+    </test> <!-- Test_2 -->
+  </suite> <!-- Suite -->
+</testng-results>

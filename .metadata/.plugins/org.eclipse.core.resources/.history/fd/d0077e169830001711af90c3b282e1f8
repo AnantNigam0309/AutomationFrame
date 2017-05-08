@@ -1,0 +1,23 @@
+package generics;
+
+import org.testng.ISuite;
+import org.testng.ISuiteListener;
+
+import utils.generateReportCucumber;
+
+public class listner implements ISuiteListener {
+
+	@Override
+	public void onFinish(ISuite arg0) {
+		constant.log.info("Suite Execution is Finished and now Generate Results is trigerred");
+		generateReportCucumber.GenerateMasterthoughtReport();
+		
+	}
+
+	@Override
+	public void onStart(ISuite arg0) {
+		constant.log.info("Suite Execution is Starting and Listener is activated");
+		
+	}
+
+}

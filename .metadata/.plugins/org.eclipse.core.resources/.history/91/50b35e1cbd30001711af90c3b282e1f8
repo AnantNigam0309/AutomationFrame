@@ -1,0 +1,36 @@
+package utils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import Engine.testNGTestRunnerCampaign;
+import generics.constant;
+
+public class objectHelper extends constant{
+
+	objectHelper(){
+		log=Logger.getLogger(testNGTestRunnerCampaign.class.getSimpleName().toString());
+	}
+	
+	public static Map<String, Object> ConvertObjectToMap(Object obj) throws 
+    IllegalAccessException, 
+    IllegalArgumentException, 
+    InvocationTargetException {
+        Class<?> pomclass = obj.getClass();
+        pomclass = obj.getClass();
+        Method[] methods = obj.getClass().getMethods();
+
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        for (Method m : methods) {
+           if (m.getName().startsWith("get") && !m.getName().startsWith("getClass")) {
+              Object value = (Object) m.invoke(obj);
+              map.put(m.getName().substring(3), (Object) value);
+           }
+        }
+    return map;
+    }
+}

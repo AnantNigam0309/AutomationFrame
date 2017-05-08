@@ -1,0 +1,82 @@
+package utils;
+
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+
+import generics.constant;
+
+public class dateTimeHelper  extends constant{
+
+	public static String getCurrentTime(){
+		SimpleDateFormat sdf = new SimpleDateFormat("dd_MMM_yyyy_hh-mm-ss_aaa(zzz)");
+		java.util.Date curDate = new java.util.Date();
+		String strDate = sdf.format(curDate);
+		String strActDate = strDate.toString();
+		return strActDate;
+	}
+	
+	public static String getCurrentTimeOnly(){
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		java.util.Date curDate = new java.util.Date();
+		String strDate = sdf.format(curDate);
+		String strActDate = strDate.toString();
+		return strActDate;
+	}
+	
+	public static String getCurrentDate(){
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		java.util.Date curDate = new java.util.Date();
+		String strDate = sdf.format(curDate);
+		String strActDate = strDate.toString();
+		return strActDate;
+	}	
+	
+	public static String totalExecutionTime(String time1, String time2){
+		int secfinal =secondFormat(time1,time2);
+		return calculateTime(secfinal);
+	}
+	
+	public static int secondFormat(String time1, String time2){
+		String[] h1=time1.split(":"); 
+		String[] h2=time2.split(":"); 
+		 
+		int hour1=Integer.parseInt(h1[0]);  
+		int minute1=Integer.parseInt(h1[1]);  
+		int second1=Integer.parseInt(h1[2]);  
+		int hour2=Integer.parseInt(h2[0]);  
+		int minute2=Integer.parseInt(h2[1]);  
+		int second2=Integer.parseInt(h2[2]);  
+		int temp1 = second1+ (60 * minute1) + (3600 * hour1); 
+		int temp2 = second2+ (60 * minute2) + (3600 * hour2); 
+		int temp = temp2-temp1;
+		return temp;  
+	}
+	
+	public static long convertInToSeconds(String time1){
+		String[] h1=time1.split(":"); 
+		int day1=Integer.parseInt(h1[0]);
+		long hour1=Integer.parseInt(h1[1]);  
+		long minute1=Integer.parseInt(h1[2]);  
+		long second1=Integer.parseInt(h1[3]);  
+		long temp1 = second1+ (60 * minute1) + (3600 * hour1)+(86400*day1); 
+		return temp1;  
+	}
+	
+	public static String calculateTime(long seconds) {
+	     int day = (int) TimeUnit.SECONDS.toDays(seconds);
+	     long hours = TimeUnit.SECONDS.toHours(seconds) -
+	                  TimeUnit.DAYS.toHours(day);
+	     long minute = TimeUnit.SECONDS.toMinutes(seconds) -
+	                   TimeUnit.DAYS.toMinutes(day) -
+	                   TimeUnit.HOURS.toMinutes(hours);
+	     long second = TimeUnit.SECONDS.toSeconds(seconds) -
+	                   TimeUnit.DAYS.toSeconds(day) -
+	                   TimeUnit.HOURS.toSeconds(hours) -
+	                   TimeUnit.MINUTES.toSeconds(minute);
+	     String time =day + ":" + hours + ":" + minute + ":" + second;
+		return time;
+	 }
+}

@@ -1,0 +1,40 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "line": 8,
+        "name": "Test Scene",
+        "description": "",
+        "id": "this-is-a-test-file-used-to-do-a-dry-run;test-scene",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 74756761,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "I am navigating to site",
+            "match": {
+              "location": "testModule.NavigateToSite()"
+            },
+            "keyword": "Given "
+          }
+        ],
+        "tags": [
+          {
+            "line": 7,
+            "name": "@CsTest"
+          }
+        ]
+      }
+    ],
+    "name": "This is a Test file used to do a dry run",
+    "description": "",
+    "id": "this-is-a-test-file-used-to-do-a-dry-run",
+    "keyword": "Feature",
+    "uri": "testModule.feature"
+  }
+]

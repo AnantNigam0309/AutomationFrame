@@ -1,0 +1,12 @@
+package com.capillary.automation.platform.imp.billpromotion;
+
+public class A {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+     String s1="Anant";
+     s1="Ujjwal";
+     System.out.println(s1);
+	}
+
+}
