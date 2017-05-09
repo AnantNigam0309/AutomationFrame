@@ -29,7 +29,7 @@ formatter.match({
   "location": "testModule.NavigateToSite()"
 });
 formatter.result({
-  "duration": 87680612,
+  "duration": 93081958,
   "status": "passed"
 });
 });

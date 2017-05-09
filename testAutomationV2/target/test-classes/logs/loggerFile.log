@@ -1,8 +1,8 @@
-May 09, 2017 12:41:32 PM testManager.beforeExecution setLogger
+May 09, 2017 2:46:18 PM testManager.beforeExecution setLogger
 INFO: -----------------------------------
-May 09, 2017 12:41:32 PM testManager.beforeExecution setLogger
+May 09, 2017 2:46:18 PM testManager.beforeExecution setLogger
 INFO: Logger Set in class beforeExecution
-May 09, 2017 12:41:32 PM testManager.beforeExecution deleteXMLDirectoryFiles
+May 09, 2017 2:46:18 PM testManager.beforeExecution deleteXMLDirectoryFiles
 INFO: deleted XML Directory Files
-May 09, 2017 12:41:32 PM utils.fileHelper <init>
+May 09, 2017 2:46:18 PM utils.fileHelper <init>
 INFO: Object Initialized For fileHelper class ..

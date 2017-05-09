@@ -1,6 +1,9 @@
 package Engine;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.testng.annotations.AfterMethod;
@@ -8,8 +11,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import apiary.Firebase;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.TestNGCucumberRunner;
+import exceptionsDefined.FirebaseException;
+import exceptionsDefined.JacksonUtilityException;
 import generics.constant;
 import generics.selenuimHelper;
 
@@ -50,7 +56,13 @@ public class testNGTestRunnerCampaign extends selenuimHelper {
 	}
 	
 	@AfterMethod
-	public void afterMethod(){
+	public void afterMethod() throws JacksonUtilityException, FirebaseException, UnsupportedOperationException, IOException{
 		taskManagerAfterExecution.completeExecution();
+		Firebase f=new Firebase("http://34.205.255.27:8080");
+		f.addQuery("parkingLotName", "First");
+		Map<String,Object> map=new HashMap<String,Object>();
+		System.out.println(f.post("parkinglot/register",map));
+		System.out.println(f.writerWithNullFirebaseResponse); // Use this after making a post request 
+		
 	}
 }

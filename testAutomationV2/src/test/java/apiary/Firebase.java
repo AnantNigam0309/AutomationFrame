@@ -1,6 +1,7 @@
 package apiary;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -36,6 +37,7 @@ import utils.jsonHelper;
 
 public class Firebase {
 
+	public String writerWithNullFirebaseResponse;
 	private final String baseUrl;
 	private String secureToken = null;
 	private List<NameValuePair> query = null;
@@ -136,11 +138,11 @@ public class Firebase {
 		return response;		
 	}
 	
-	public FirebaseResponse post( Map<String, Object> data ) throws JacksonUtilityException, FirebaseException, UnsupportedEncodingException {
+	public FirebaseResponse post( Map<String, Object> data ) throws JacksonUtilityException, FirebaseException, IOException {
 		return this.post( null, data );
 	}
 	
-	public FirebaseResponse post( String path, Map<String, Object> data ) throws JacksonUtilityException, FirebaseException, UnsupportedEncodingException {
+	public FirebaseResponse post( String path, Map<String, Object> data ) throws JacksonUtilityException, FirebaseException, IOException {
 		String url = this.buildFullUrlFromRelativePath( path );
 		HttpPost request = new HttpPost( url );
 		request.setEntity( this.buildEntityFromDataMap( data ) );
@@ -333,7 +335,7 @@ public class Firebase {
 			} catch( Throwable t ) {
 				
 				String msg = "unable to read response-content; read up to this point: '" + writer.toString() + "'";
-				writer = new StringWriter(); // don't want to later give jackson partial JSON it might choke on
+				writer = new StringWriter(); 
 				constant.log.warning( msg );
 				throw new FirebaseException( msg, t );
 				
@@ -346,16 +348,17 @@ public class Firebase {
 			body = jsonHelper.GET_JSON_STRING_AS_MAP( writer.toString() );
 			
 		} catch( JacksonUtilityException jue ) {
-			
 			String msg = "unable to convert response-body into map; response-body was: '" + writer.toString() + "'";
 			constant.log.warning( msg );
 			throw new FirebaseException( msg, jue );
 		}
 		
-		// build the response
+		if(body.isEmpty()){
+			writerWithNullFirebaseResponse=writer.toString();
+		}else{
 		response = new FirebaseResponse( success, code, body, writer.toString() );
+		}
 		
-		//clear the query
 		query = null;
 		
 		return response;
