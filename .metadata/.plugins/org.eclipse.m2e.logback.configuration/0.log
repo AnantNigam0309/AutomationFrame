@@ -8619,3 +8619,159 @@ org.eclipse.core.runtime.CoreException: Launch configuration MailHelper referenc
 2017-05-08 17:12:56,625 [Worker-123] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
 2017-05-08 17:12:56,626 [Worker-123] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
 2017-05-08 17:12:56,627 [Worker-123] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 11:03:01,942 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 11:03:01,963 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 11:03:01,967 [Worker-2] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 11:03:01,977 [Worker-2] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:28:13,495 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:28:13,495 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:28:13,497 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:28:13,512 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:29:39,084 [Worker-41] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:29:39,084 [Worker-41] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:29:39,086 [Worker-41] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:29:39,087 [Worker-41] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:30:53,610 [Worker-43] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:30:53,610 [Worker-43] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:30:53,613 [Worker-43] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:30:53,614 [Worker-43] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:31:09,600 [Worker-42] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:31:09,601 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:31:09,602 [Worker-42] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:31:09,603 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:31:16,949 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:31:16,949 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:31:16,951 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:31:16,954 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:32:03,345 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:32:03,346 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:32:03,349 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:32:03,354 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-05-09 12:32:12,992 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:32:12,993 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:32:12,994 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:32:12,995 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:32:41,550 [Worker-35] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:32:41,550 [Worker-35] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:32:41,552 [Worker-35] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:32:41,553 [Worker-35] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:33:04,234 [Worker-41] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:33:04,234 [Worker-41] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:33:04,235 [Worker-41] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:33:04,236 [Worker-41] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:33:29,439 [Worker-42] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:33:29,439 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:33:29,441 [Worker-42] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:33:29,442 [Worker-42] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:33:36,352 [Worker-43] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:33:36,353 [Worker-43] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:33:36,355 [Worker-43] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:33:36,356 [Worker-43] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:35:02,251 [Worker-41] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:35:02,251 [Worker-41] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:35:02,252 [Worker-41] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:35:02,253 [Worker-41] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:35:07,779 [Worker-42] INFO  o.e.m.i.launch.MavenLaunchDelegate - /home/anantnigam/workspace/testAutomationV2
+2017-05-09 12:35:07,780 [Worker-42] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B test
+2017-05-09 12:35:15,706 [Worker-33] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:35:15,707 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:35:15,710 [Worker-33] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:35:15,713 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 8 resources
+2017-05-09 12:35:34,547 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:35:34,548 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:35:34,549 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:35:34,550 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 8 resources
+2017-05-09 12:36:00,296 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:36:00,296 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:36:00,306 [Worker-40] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:36:00,307 [Worker-40] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-05-09 12:38:54,995 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:38:55,001 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:38:55,007 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:38:55,021 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:38:56,435 [Worker-4] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:38:56,438 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:38:56,441 [Worker-4] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:38:56,447 [Worker-4] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:39:52,966 [Worker-8] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:39:52,968 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:39:52,969 [Worker-8] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:39:52,971 [Worker-8] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:40:02,197 [Worker-0] INFO  o.e.m.i.launch.MavenLaunchDelegate - /home/anantnigam/workspace/testAutomationV2
+2017-05-09 12:40:02,198 [Worker-0] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B test
+2017-05-09 12:40:08,708 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:40:08,708 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:40:08,710 [Worker-14] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:40:08,712 [Worker-14] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 2 resources
+2017-05-09 12:41:02,208 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:02,213 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:41:02,216 [Worker-17] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:02,219 [Worker-17] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:41:06,450 [Worker-6] INFO  o.e.m.i.launch.MavenLaunchDelegate - /home/anantnigam/workspace/testAutomationV2
+2017-05-09 12:41:06,450 [Worker-6] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B test
+2017-05-09 12:41:12,607 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:12,608 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:41:12,610 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:12,615 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-05-09 12:41:21,370 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:21,370 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:41:21,371 [Worker-19] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:21,373 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:41:29,502 [Worker-5] INFO  o.e.m.i.launch.MavenLaunchDelegate - /home/anantnigam/workspace/testAutomationV2
+2017-05-09 12:41:29,502 [Worker-5] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B test
+2017-05-09 12:41:35,820 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:35,821 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:41:35,831 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:35,833 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-05-09 12:41:53,419 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:53,419 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:41:53,421 [Worker-7] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:41:53,424 [Worker-7] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:42:00,655 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:42:00,657 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:42:00,659 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:42:00,660 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:42:05,851 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:42:05,852 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:42:05,853 [Worker-11] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:42:05,854 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 12:42:21,756 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:42:21,757 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 12:42:21,759 [Worker-16] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 12:42:21,760 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2017-05-09 13:32:40,667 [Worker-5] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:32:40,667 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:32:40,669 [Worker-5] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:32:40,670 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 13:33:42,844 [Worker-27] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:33:42,845 [Worker-27] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:33:42,846 [Worker-27] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:33:42,847 [Worker-27] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 13:34:13,994 [Worker-25] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:34:13,995 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:34:13,996 [Worker-25] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:34:13,997 [Worker-25] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 13:35:09,781 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:35:09,782 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:35:09,785 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:35:09,786 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 13:36:48,682 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:36:48,682 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:36:48,683 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:36:48,684 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 13:37:03,422 [Worker-23] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:37:03,422 [Worker-23] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:37:03,423 [Worker-23] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:37:03,426 [Worker-23] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 13:37:18,908 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:37:18,909 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:37:18,910 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:37:18,911 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 9 resources
+2017-05-09 13:38:15,979 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:38:15,979 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:38:15,983 [Worker-26] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:38:15,989 [Worker-26] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2017-05-09 13:38:25,143 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:38:25,143 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/anantnigam/workspace/testAutomationV2/src/main/resources
+2017-05-09 13:38:25,144 [Worker-24] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2017-05-09 13:38:25,145 [Worker-24] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 8 resources

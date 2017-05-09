@@ -14,15 +14,15 @@
       <![CDATA[<div "result">Given  I am navigating to site (passed : 0s)</div>]]>
     </line>
   </reporter-output>
-  <suite name="Suite" duration-ms="3898" started-at="2017-05-08T08:57:05Z" finished-at="2017-05-08T08:57:09Z">
+  <suite name="Suite" duration-ms="2968" started-at="2017-05-09T07:11:32Z" finished-at="2017-05-09T07:11:35Z">
     <groups>
       <group name="cucumber">
         <method signature="testNGTestRunnerCampaign.run_cukes()[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="run_cukes" class="Engine.testNGTestRunnerCampaign"/>
       </group> <!-- cucumber -->
     </groups>
-    <test name="CampaignTestCases" duration-ms="3898" started-at="2017-05-08T08:57:05Z" finished-at="2017-05-08T08:57:09Z">
+    <test name="CampaignTestCases" duration-ms="2968" started-at="2017-05-09T07:11:32Z" finished-at="2017-05-09T07:11:35Z">
       <class name="Engine.testNGTestRunnerCampaign">
-        <test-method status="PASS" signature="beforeMethod(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="beforeMethod" is-config="true" duration-ms="1282" started-at="2017-05-08T14:27:05Z" finished-at="2017-05-08T14:27:06Z">
+        <test-method status="PASS" signature="beforeMethod(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="beforeMethod" is-config="true" duration-ms="1385" started-at="2017-05-09T12:41:32Z" finished-at="2017-05-09T12:41:33Z">
           <params>
             <param index="0">
               <value>
@@ -48,7 +48,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="run_cukes()[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="run_cukes" duration-ms="332" started-at="2017-05-08T14:27:06Z" description="Runs Cucumber Features" finished-at="2017-05-08T14:27:06Z">
+        <test-method status="PASS" signature="run_cukes()[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="run_cukes" duration-ms="272" started-at="2017-05-09T12:41:33Z" description="Runs Cucumber Features" finished-at="2017-05-09T12:41:34Z">
           <reporter-output>
             <line>
               <![CDATA[<div "featureFile">Feature File: testModule.feature</div>]]>
@@ -64,7 +64,7 @@
             </line>
           </reporter-output>
         </test-method> <!-- run_cukes -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="afterMethod" is-config="true" duration-ms="2271" started-at="2017-05-08T14:27:06Z" finished-at="2017-05-08T14:27:09Z">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:Engine.testNGTestRunnerCampaign@5af97169]" name="afterMethod" is-config="true" duration-ms="1294" started-at="2017-05-09T12:41:34Z" finished-at="2017-05-09T12:41:35Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->

@@ -1,0 +1,112 @@
+package utils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import Engine.testNGTestRunnerCampaign;
+import generics.constant;
+
+public class yamlHelper extends constant{
+	
+	public yamlHelper(){
+		log=Logger.getLogger(testNGTestRunnerCampaign.class.getSimpleName().toString());
+	}
+
+	@SuppressWarnings("unchecked")
+	public void load(String fileName) {
+	   String pathName=ymlPath+fileName+".yml";
+       try {
+    	   log.info("Loading Yaml for File :"+fileName);
+		   ymlMapper = (Map<String, Object>) ymlObject.load(new FileInputStream(new File(pathName)));
+	   } catch (FileNotFoundException exp) {
+		   log.info("Exception Occured while loading yaml file :"+fileName+" Message Recieved :"+exp.getMessage());
+	   } catch (Exception exp){
+		   log.info("Exception Occured while loading yaml file :"+fileName+" Message Recieved :"+exp.getMessage());
+	   }
+	}
+	
+	public void dump(String fileName){
+		String pathName=ymlPath+fileName+".yml";
+		try{
+			log.info("Dumping the Current Yaml Object");
+			ymlObject.dump(ymlObject.load(new FileInputStream(new File(pathName))));
+		} catch(Exception exp){
+			log.info("Exception Occured while Dumping Curent Yaml Object");
+		}
+	}
+	
+	public String getObject(String fileName){
+		String pathName=ymlPath+fileName+".yml";
+		String strParent = null;
+		try{
+			log.info("Getting Complete yaml from file :"+fileName);
+		    strParent= ymlObject.load(new FileInputStream(new File(pathName))).toString();
+		} catch (Exception exp){
+			log.info("Exception Occured while Getting Parent Object");
+		}
+		return strParent;
+	}
+
+	public String getObject(String fileName,String first){
+		String pathName=ymlPath+fileName+".yml";
+		String strParent = null;
+		try{
+			log.info("Getting Complete yaml from file :"+fileName);
+		    strParent= objHelper.ConvertObjectToMap(ymlObject.load(new FileInputStream(new File(pathName)))).get(first).toString();
+		} catch (Exception exp){
+			log.info("Exception Occured while Getting Parent Object");
+		}
+		return strParent;
+	}
+	
+	public String getObject(String fileName,String first,String second){
+		String pathName=ymlPath+fileName+".yml";
+		String strParent = null;
+		try{
+			log.info("Getting Complete yaml from file :"+fileName);
+		    strParent= objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(ymlObject.load(new FileInputStream(new File(pathName)))).get(first)).get(second).toString();
+		} catch (Exception exp){
+			log.info("Exception Occured while Getting Parent Object");
+		}
+		return strParent;
+	}
+	
+	public String getObject(String fileName,String first,String second,String third){
+		String pathName=ymlPath+fileName+".yml";
+		String strParent = null;
+		try{
+			log.info("Getting Complete yaml from file :"+fileName);
+		    strParent= objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(ymlObject.load(new FileInputStream(new File(pathName)))).get(first)).get(second)).get(third).toString();
+		} catch (Exception exp){
+			log.info("Exception Occured while Getting Parent Object");
+		}
+		return strParent;
+	}
+	
+	public String getObject(String fileName,String first,String second,String third,String fourth){
+		String pathName=ymlPath+fileName+".yml";
+		String strParent = null;
+		try{
+			log.info("Getting Complete yaml from file :"+fileName);
+		    strParent= objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(ymlObject.load(new FileInputStream(new File(pathName)))).get(first)).get(second)).get(third)).get(fourth).toString();
+		} catch (Exception exp){
+			log.info("Exception Occured while Getting Parent Object");
+		}
+		return strParent;
+	}
+	
+	public String getObject(String fileName,String first,String second,String third,String fourth,String fifth){
+		String pathName=ymlPath+fileName+".yml";
+		String strParent = null;
+		try{
+			log.info("Getting Complete yaml from file :"+fileName);
+		    strParent= objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(objHelper.ConvertObjectToMap(ymlObject.load(new FileInputStream(new File(pathName)))).get(first)).get(second)).get(third)).get(fourth)).get(fifth).toString();
+		} catch (Exception exp){
+			log.info("Exception Occured while Getting Parent Object");
+		}
+		return strParent;
+	}
+}

@@ -36,11 +36,9 @@ import utils.jsonHelper;
 
 public class Firebase {
 
-	public static final String FIREBASE_API_JSON_EXTENSION ="";
-	
 	private final String baseUrl;
 	private String secureToken = null;
-	private List<NameValuePair> query;
+	private List<NameValuePair> query = null;
 	
 	
 	public Firebase( String baseUrl ) throws FirebaseException {
@@ -75,7 +73,6 @@ public class Firebase {
 	public FirebaseResponse get( String path ) throws FirebaseException, UnsupportedEncodingException {
 		String url = this.buildFullUrlFromRelativePath( path );
 		HttpGet request = new HttpGet( url );
-		request.setHeader("Accept", "application/json");
 		HttpResponse httpResponse = this.makeRequest( request );
 		
 		FirebaseResponse response = this.processResponse( FirebaseRestMethod.GET, httpResponse );
@@ -217,7 +214,7 @@ public class Firebase {
 		if( !path.isEmpty() && !path.startsWith( "/" ) ) {
 			path = "/" + path;
 		}
-		String url = this.baseUrl + path + Firebase.FIREBASE_API_JSON_EXTENSION;
+		String url = this.baseUrl + path ;
 		
 		if(query != null) {
 			url += "?";
@@ -249,6 +246,7 @@ public class Firebase {
 	}
 	
 	
+	@SuppressWarnings({ "resource", "deprecation" })
 	private HttpResponse makeRequest( HttpRequestBase request ) throws FirebaseException {
 		
 		HttpResponse response = null;
@@ -258,6 +256,9 @@ public class Firebase {
 			constant.log.warning( msg );
 			throw new FirebaseException( msg );
 		}
+		
+		request.setHeader("content-type","Application/json");
+		request.setHeader("Accept","Application/json");
 		
 		try {
 			

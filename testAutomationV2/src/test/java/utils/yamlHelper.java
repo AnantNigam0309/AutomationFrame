@@ -3,6 +3,7 @@ package utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -34,7 +35,7 @@ public class yamlHelper extends constant{
 			log.info("Dumping the Current Yaml Object");
 			ymlObject.dump(ymlObject.load(new FileInputStream(new File(pathName))));
 		} catch(Exception exp){
-			log.info("Exception Occured while Dumping Curent Yaml Object");
+			log.info("Exception Occured while Dumping Curent Yaml Object, Message Recieved :"+exp.getMessage());
 		}
 	}
 	
@@ -108,5 +109,16 @@ public class yamlHelper extends constant{
 			log.info("Exception Occured while Getting Parent Object");
 		}
 		return strParent;
+	}
+	
+	public void setObject(String fileName,Map<String,Object> map){
+		String pathName=ymlPath+fileName+".yml";
+		try{
+			log.info("Writting Map into Yaml File :"+fileName);
+			FileWriter write=new FileWriter(pathName);
+			ymlObject.dump(map, write);
+		}catch(Exception exp){
+			log.info("Exception Occured while Setting Map in YAML File :"+fileName);
+		}
 	}
 }
